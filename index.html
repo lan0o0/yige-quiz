@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>三星堆奇妙之旅 · 小测试</title>
+<title>趣味小测试乐园</title>
 <style>
   @font-face {
     font-family: 'BricolageGrotesque';
@@ -23,63 +23,63 @@
   }
 
   :root {
-    --bg: #FFF8E7;
-    --bg2: #FFE9B0;
-    --ink: #3D2914;
-    --muted: #8B6914;
-    --rule: #E8C97A;
-    --accent: #2A9D8F;
-    --accent2: #E76F51;
-    --accent3: #F4A261;
-    --accent4: #E9C46A;
-    --accent5: #264653;
-    --bronze: #7CB342;
-    --gold: #FFB300;
-    --correct: #4CAF50;
-    --wrong: #F44336;
+    --bg: #F0F4FF;
+    --bg2: #DCE6FF;
+    --ink: #1A237E;
+    --muted: #5C6BC0;
+    --rule: #B3E5FC;
+    --accent: #667eea;
+    --accent2: #764ba2;
+    --accent3: #f093fb;
+    --accent4: #f5576c;
+    --accent5: #4facfe;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", "Heiti SC", sans-serif;
-    background: var(--bg);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: var(--ink);
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
   }
 
-  /* 背景装饰 */
   body::before {
     content: '';
     position: fixed;
-    top: -50px;
-    left: -50px;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, var(--accent3) 0%, transparent 70%);
-    opacity: 0.3;
+    top: -100px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(240,147,251,0.4) 0%, transparent 70%);
     border-radius: 50%;
     z-index: 0;
+    animation: float 8s ease-in-out infinite;
   }
   body::after {
     content: '';
     position: fixed;
-    bottom: -80px;
-    right: -80px;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, var(--accent4) 0%, transparent 70%);
-    opacity: 0.3;
+    bottom: -120px;
+    right: -120px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(79,172,254,0.3) 0%, transparent 70%);
     border-radius: 50%;
     z-index: 0;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, 30px); }
   }
 
   .container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 30px 20px;
     position: relative;
     z-index: 1;
     min-height: 100vh;
@@ -87,983 +87,301 @@
     flex-direction: column;
   }
 
-  /* 页面通用 */
-  .page {
-    display: none;
-    animation: fadeIn 0.5s ease;
-    flex: 1;
-    display: none;
-    flex-direction: column;
-  }
-  .page.active {
-    display: flex;
+  /* 头部 */
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+    animation: pop 0.8s ease;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  .main-title {
+    font-family: 'NothingYouCouldDo', cursive;
+    font-size: 3rem;
+    color: white;
+    text-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+    margin-bottom: 8px;
   }
+
+  .main-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.9);
+  }
+
+  .main-emoji {
+    font-size: 3rem;
+    margin: 10px 0;
+    letter-spacing: 15px;
+  }
+  .main-emoji span {
+    display: inline-block;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .main-emoji span:nth-child(1) { animation-delay: 0s; }
+  .main-emoji span:nth-child(2) { animation-delay: 0.2s; }
+  .main-emoji span:nth-child(3) { animation-delay: 0.4s; }
 
   @keyframes bounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-12px); }
   }
-
-  @keyframes wiggle {
-    0%, 100% { transform: rotate(-3deg); }
-    50% { transform: rotate(3deg); }
-  }
-
   @keyframes pop {
     0% { transform: scale(0.8); opacity: 0; }
-    50% { transform: scale(1.1); }
+    50% { transform: scale(1.05); }
     100% { transform: scale(1); opacity: 1; }
   }
-
-  @keyframes sparkle {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.2); }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
   }
 
-  /* 开始页 */
-  #start-page {
+  /* 测试卡片网格 */
+  .quiz-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+    flex: 1;
+    align-content: center;
+  }
+
+  .quiz-card {
+    background: white;
+    border-radius: 24px;
+    padding: 30px 24px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 4px solid transparent;
+    position: relative;
+    overflow: hidden;
+    animation: pop 0.6s ease both;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .quiz-card:nth-child(1) { animation-delay: 0.1s; }
+  .quiz-card:nth-child(2) { animation-delay: 0.2s; }
+  .quiz-card:nth-child(3) { animation-delay: 0.3s; }
+
+  .quiz-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--card-color-1), var(--card-color-2));
+  }
+
+  .quiz-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    border-color: var(--card-color-1);
+  }
+
+  .quiz-card-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    gap: 24px;
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--card-color-1), var(--card-color-2));
+    animation: wiggle 3s ease-in-out infinite;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
   }
 
-  .banner-img {
-    width: 100%;
-    max-width: 600px;
-    border-radius: 24px;
-    box-shadow: 0 10px 40px rgba(231, 111, 81, 0.3);
-    animation: bounce 3s ease-in-out infinite;
-  }
-
-  .title {
-    font-family: 'NothingYouCouldDo', cursive;
-    font-size: 2.5rem;
-    color: var(--accent2);
-    text-shadow: 3px 3px 0 var(--accent4);
-    margin-top: 10px;
-  }
-
-  .subtitle {
-    font-size: 1.1rem;
-    color: var(--muted);
+  .quiz-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
     margin-bottom: 10px;
-  }
-
-  .intro-card {
-    background: white;
-    border-radius: 20px;
-    padding: 24px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    border: 3px solid var(--accent4);
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  .intro-card p {
-    font-size: 1rem;
-    line-height: 1.8;
     color: var(--ink);
   }
 
-  .intro-card .emoji-row {
-    font-size: 2rem;
-    margin: 16px 0;
-    letter-spacing: 10px;
+  .quiz-card .desc {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 18px;
   }
 
-  .btn {
-    display: inline-block;
-    padding: 16px 48px;
-    font-size: 1.3rem;
+  .quiz-card .meta {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .quiz-card .tag {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: var(--card-color-1);
+    color: white;
+    opacity: 0.85;
+  }
+
+  .start-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 32px;
+    font-size: 1.1rem;
     font-weight: 700;
     color: white;
-    background: linear-gradient(135deg, var(--accent2), var(--accent3));
+    background: linear-gradient(135deg, var(--card-color-1), var(--card-color-2));
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 6px 20px rgba(231, 111, 81, 0.4);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     transition: all 0.3s ease;
     font-family: inherit;
+    text-decoration: none;
   }
-  .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(231, 111, 81, 0.5);
-  }
-  .btn:active {
-    transform: translateY(-1px);
-  }
-  .btn.btn-secondary {
-    background: linear-gradient(135deg, var(--accent), var(--bronze));
-    box-shadow: 0 6px 20px rgba(42, 157, 143, 0.4);
-  }
-  .btn.btn-secondary:hover {
-    box-shadow: 0 10px 30px rgba(42, 157, 143, 0.5);
+  .start-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
   }
 
-  /* 答题页头部 */
-  .quiz-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 0;
-    margin-bottom: 16px;
+  /* 卡片主题色 */
+  .card-sanxingdui {
+    --card-color-1: #E76F51;
+    --card-color-2: #F4A261;
+  }
+  .card-sichuan {
+    --card-color-1: #E63946;
+    --card-color-2: #F77F00;
+  }
+  .card-coming {
+    --card-color-1: #667eea;
+    --card-color-2: #764ba2;
   }
 
-  .progress-bar {
-    flex: 1;
-    height: 16px;
-    background: var(--bg2);
-    border-radius: 10px;
-    overflow: hidden;
-    margin: 0 16px;
-    border: 2px solid var(--rule);
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--bronze));
-    border-radius: 8px;
-    transition: width 0.5s ease;
-    width: 0%;
-  }
-
-  .question-num {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--accent5);
-    background: var(--accent4);
-    padding: 6px 14px;
-    border-radius: 20px;
-    white-space: nowrap;
-  }
-
-  .score-display {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--accent2);
-    background: white;
-    padding: 6px 14px;
-    border-radius: 20px;
-    border: 2px solid var(--accent2);
-    white-space: nowrap;
-  }
-
-  /* 题目卡片 */
-  .question-card {
-    background: white;
-    border-radius: 24px;
-    padding: 32px 24px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    border: 3px solid var(--rule);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    animation: pop 0.5s ease;
-  }
-
-  .question-icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 16px;
-    background: linear-gradient(135deg, var(--accent4), var(--accent3));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    animation: wiggle 2s ease-in-out infinite;
-  }
-
-  .question-text {
-    font-size: 1.3rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 24px;
-    line-height: 1.6;
-    color: var(--accent5);
-  }
-
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    flex: 1;
-    justify-content: center;
-  }
-
-  .option {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px 20px;
-    background: var(--bg);
-    border: 3px solid var(--rule);
-    border-radius: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1.05rem;
-    font-weight: 500;
-    text-align: left;
-    font-family: inherit;
-    color: var(--ink);
-    width: 100%;
-  }
-  .option:hover:not(.disabled) {
-    border-color: var(--accent3);
-    background: #FFF0D4;
-    transform: translateX(5px);
-  }
-  .option .option-letter {
-    width: 36px;
-    height: 36px;
-    background: var(--accent4);
-    color: var(--accent5);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 1rem;
-    flex-shrink: 0;
-  }
-  .option.correct {
-    background: #E8F5E9;
-    border-color: var(--correct);
-    animation: pop 0.4s ease;
-  }
-  .option.correct .option-letter {
-    background: var(--correct);
-    color: white;
-  }
-  .option.wrong {
-    background: #FFEBEE;
-    border-color: var(--wrong);
-    animation: shake 0.4s ease;
-  }
-  .option.wrong .option-letter {
-    background: var(--wrong);
-    color: white;
-  }
-  .option.disabled {
+  /* 即将到来卡片 */
+  .coming-card {
+    opacity: 0.75;
     cursor: default;
   }
-
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    75% { transform: translateX(8px); }
+  .coming-card:hover {
+    transform: none;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    border-color: transparent;
   }
-
-  .feedback {
-    margin-top: 16px;
-    padding: 14px 18px;
-    border-radius: 14px;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    display: none;
-    animation: fadeIn 0.4s ease;
-  }
-  .feedback.show { display: block; }
-  .feedback.correct {
-    background: #E8F5E9;
-    border: 2px solid var(--correct);
-    color: #2E7D32;
-  }
-  .feedback.wrong {
-    background: #FFEBEE;
-    border: 2px solid var(--wrong);
-    color: #C62828;
-  }
-
-  .next-btn-wrap {
-    margin-top: 20px;
-    text-align: center;
-    display: none;
-  }
-  .next-btn-wrap.show { display: block; }
-
-  /* 开放题 */
-  .open-question-card {
-    background: white;
-    border-radius: 24px;
-    padding: 32px 24px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    border: 3px solid var(--accent);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    animation: pop 0.5s ease;
-  }
-
-  .open-question-icon {
-    width: 90px;
-    height: 90px;
-    margin: 0 auto 16px;
-    background: linear-gradient(135deg, var(--accent), var(--bronze));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.8rem;
-    animation: sparkle 2s ease-in-out infinite;
-  }
-
-  .open-question-text {
-    font-size: 1.25rem;
+  .coming-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
     font-weight: 700;
+  }
+
+  /* 底部 */
+  .footer {
     text-align: center;
-    margin-bottom: 20px;
-    line-height: 1.6;
-    color: var(--accent5);
+    padding: 24px 0 10px;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.85rem;
+    margin-top: 30px;
   }
-
-  .open-question-hint {
-    font-size: 0.9rem;
-    color: var(--muted);
-    text-align: center;
-    margin-bottom: 16px;
-    padding: 10px;
-    background: var(--bg);
-    border-radius: 10px;
-  }
-
-  textarea.answer-input {
-    width: 100%;
-    min-height: 140px;
-    padding: 16px;
-    border: 3px solid var(--rule);
-    border-radius: 16px;
-    font-size: 1rem;
-    font-family: inherit;
-    resize: vertical;
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.6;
-    transition: border-color 0.3s;
-  }
-  textarea.answer-input:focus {
-    outline: none;
-    border-color: var(--accent);
-  }
-
-  /* 结果页 */
-  #result-page {
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 20px;
-  }
-
-  .result-card {
-    background: white;
-    border-radius: 28px;
-    padding: 40px 30px;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
-    border: 4px solid var(--accent4);
-    max-width: 550px;
-    width: 100%;
-    animation: pop 0.6s ease;
-  }
-
-  .result-badge {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 20px;
-    background: linear-gradient(135deg, var(--gold), var(--accent3));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 4rem;
-    box-shadow: 0 6px 24px rgba(255, 179, 0, 0.5);
-    animation: bounce 2s ease-in-out infinite;
-  }
-
-  .result-title {
-    font-family: 'NothingYouCouldDo', cursive;
-    font-size: 2.2rem;
-    color: var(--accent2);
-    margin-bottom: 8px;
-  }
-
-  .result-score {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--accent5);
-    margin: 16px 0;
-  }
-  .result-score .out-of {
-    font-size: 1.5rem;
-    color: var(--muted);
-  }
-
-  .result-message {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--ink);
-    margin-bottom: 20px;
-    padding: 16px;
-    background: var(--bg);
-    border-radius: 14px;
-  }
-
-  .stars {
-    font-size: 2rem;
-    margin: 16px 0;
-    letter-spacing: 8px;
-  }
-
-  .result-answer-section {
-    text-align: left;
-    margin-top: 20px;
-    padding: 16px;
-    background: #E8F5E9;
-    border-radius: 14px;
-    border: 2px solid var(--correct);
-  }
-  .result-answer-section h4 {
-    color: var(--correct);
-    margin-bottom: 8px;
-    font-size: 1rem;
-  }
-  .result-answer-section p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #2E7D32;
-    font-style: italic;
-  }
-
-  .btn-row {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    margin-top: 20px;
-    flex-wrap: wrap;
-  }
-
-  /* 浮动装饰 */
-  .floating-deco {
-    position: fixed;
-    font-size: 2rem;
-    opacity: 0.6;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .deco1 { top: 10%; left: 5%; animation: bounce 4s ease-in-out infinite; }
-  .deco2 { top: 30%; right: 5%; animation: bounce 3.5s ease-in-out infinite 0.5s; }
-  .deco3 { bottom: 20%; left: 8%; animation: bounce 4.5s ease-in-out infinite 1s; }
-  .deco4 { bottom: 10%; right: 10%; animation: bounce 3s ease-in-out infinite 0.3s; }
 
   /* 响应式 */
   @media (max-width: 600px) {
-    .title { font-size: 1.8rem; }
-    .question-text { font-size: 1.1rem; }
-    .option { font-size: 0.95rem; padding: 12px 16px; }
-    .result-title { font-size: 1.6rem; }
-    .result-score { font-size: 2.2rem; }
-    .banner-img { border-radius: 16px; }
-    .question-card, .open-question-card, .result-card {
-      padding: 24px 16px;
-      border-radius: 18px;
-    }
-    .btn { padding: 14px 36px; font-size: 1.1rem; }
-    .quiz-header { flex-wrap: wrap; gap: 8px; }
-    .progress-bar { order: 3; flex-basis: 100%; margin: 8px 0 0; }
+    .main-title { font-size: 2rem; }
+    .main-emoji { font-size: 2rem; letter-spacing: 10px; }
+    .quiz-grid { grid-template-columns: 1fr; gap: 18px; }
+    .quiz-card { padding: 24px 20px; }
+    .quiz-card-icon { width: 80px; height: 80px; font-size: 2.8rem; }
+    .quiz-card h3 { font-size: 1.3rem; }
+    .container { padding: 20px 16px; }
   }
 </style>
 </head>
 <body>
 
-<!-- 背景装饰 -->
-<div class="floating-deco deco1">🏺</div>
-<div class="floating-deco deco2">✨</div>
-<div class="floating-deco deco3">🌳</div>
-<div class="floating-deco deco4">⭐</div>
-
 <div class="container">
 
-  <!-- 开始页面 -->
-  <div class="page active" id="start-page">
-    <img src="assets/banner.jpg" alt="三星堆奇妙之旅" class="banner-img">
-    <h1 class="title">三星堆小测试</h1>
-    <p class="subtitle">小朋友，你准备好探索古蜀国的秘密了吗？</p>
-    
-    <div class="intro-card">
-      <div class="emoji-row">👁️ 🌳 🏆 ✨</div>
-      <p>
-        我们刚刚参观了神奇的三星堆博物馆，看到了好多好多有趣的宝贝！
-        现在让我们来玩一个小测试，看看你记住了多少有趣的知识吧～
-        一共有 <strong>30道选择题</strong> 和 <strong>1道创意题</strong>，加油！
+  <header class="header">
+    <div class="main-emoji">
+      <span>🎯</span><span>🧩</span><span>🎉</span>
+    </div>
+    <h1 class="main-title">趣味小测试乐园</h1>
+    <p class="main-subtitle">一起来挑战有趣的小知识吧！选择一个测试开始冒险～</p>
+  </header>
+
+  <main class="quiz-grid">
+
+    <!-- 三星堆测试 -->
+    <a href="sanxingdui-quiz.html" class="quiz-card card-sanxingdui">
+      <div class="quiz-card-icon">🏺</div>
+      <h3>三星堆奇妙之旅</h3>
+      <p class="desc">
+        探索神秘的古蜀国！认识青铜面具、神树、金杖，
+        看看你对三千年前的文明了解多少～
       </p>
+      <div class="meta">
+        <span class="tag">30 道题</span>
+        <span class="tag">历史文化</span>
+        <span class="tag">适合 7 岁+</span>
+      </div>
+      <span class="start-btn">
+        开始挑战 🚀
+      </span>
+    </a>
+
+    <!-- 四川吃喝玩乐测试 -->
+    <a href="sichuan-quiz.html" class="quiz-card card-sichuan">
+      <div class="quiz-card-icon">🐼</div>
+      <h3>四川吃喝玩乐大挑战</h3>
+      <p class="desc">
+        麻辣火锅、可爱熊猫、壮美山川！
+        看看你对天府之国了解多少，还有地理小知识哦～
+      </p>
+      <div class="meta">
+        <span class="tag">30 道题</span>
+        <span class="tag">美食地理</span>
+        <span class="tag">适合 7 岁+</span>
+      </div>
+      <span class="start-btn">
+        开始挑战 🚀
+      </span>
+    </a>
+
+    <!-- 更多即将到来 -->
+    <div class="quiz-card card-coming coming-card">
+      <div class="coming-badge">敬请期待</div>
+      <div class="quiz-card-icon">✨</div>
+      <h3>更多测试即将上线</h3>
+      <p class="desc">
+        还有更多有趣的小测试正在准备中，
+        猜猜下一个会是什么主题呢？
+      </p>
+      <div class="meta">
+        <span class="tag">更新中</span>
+        <span class="tag">敬请期待</span>
+      </div>
+      <span class="start-btn" style="opacity:0.6; pointer-events:none;">
+        即将上线 🔜
+      </span>
     </div>
 
-    <button class="btn" onclick="startQuiz()">🚀 开始探险</button>
-  </div>
+  </main>
 
-  <!-- 答题页面 -->
-  <div class="page" id="quiz-page">
-    <div class="quiz-header">
-      <div class="question-num" id="question-num">第 1 题</div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="progress-fill"></div>
-      </div>
-      <div class="score-display" id="score-display">⭐ 0 分</div>
-    </div>
-
-    <div class="question-card" id="question-card">
-      <div class="question-icon" id="question-icon">👁️</div>
-      <div class="question-text" id="question-text">
-        问题加载中...
-      </div>
-      <div class="options" id="options">
-        <!-- 选项由JS生成 -->
-      </div>
-      <div class="feedback" id="feedback"></div>
-      <div class="next-btn-wrap" id="next-btn-wrap">
-        <button class="btn btn-secondary" onclick="nextQuestion()">下一题 ➡️</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 开放题页面 -->
-  <div class="page" id="open-page">
-    <div class="quiz-header">
-      <div class="question-num" style="background: var(--accent); color: white;">创意题 ✨</div>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: 100%; background: linear-gradient(90deg, var(--accent), var(--bronze));"></div>
-      </div>
-      <div class="score-display" id="open-score-display">⭐ 0 分</div>
-    </div>
-
-    <div class="open-question-card">
-      <div class="open-question-icon">🎨</div>
-      <div class="open-question-text" id="open-question-text">
-        你觉得三星堆时代的小朋友，每天的生活是什么样的呢？他们会玩什么游戏？吃什么好吃的？
-      </div>
-      <div class="open-question-hint">
-        💡 小提示：可以想象一下，3000多年前的小朋友会去河边捉鱼吗？会和小动物一起玩吗？会帮爸爸妈妈做家务吗？
-      </div>
-      <textarea class="answer-input" id="open-answer" placeholder="在这里写下你的奇思妙想吧..."></textarea>
-      
-      <div style="margin-top: 20px; text-align: center;">
-        <button class="btn" onclick="submitOpenAnswer()">📝 提交答案</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 结果页面 -->
-  <div class="page" id="result-page">
-    <div class="result-card">
-      <div class="result-badge" id="result-badge">🏆</div>
-      <h2 class="result-title" id="result-title">太棒啦！</h2>
-      <div class="result-score">
-        <span id="final-score">0</span>
-        <span class="out-of">/ 30 题</span>
-      </div>
-      <div class="stars" id="stars">⭐⭐⭐⭐⭐</div>
-      <div class="result-message" id="result-message">
-        你真是一个小小考古学家！
-      </div>
-
-      <div class="result-answer-section" id="result-answer-section">
-        <h4>🎨 你的创意答案：</h4>
-        <p id="result-answer-text"></p>
-      </div>
-    </div>
-
-    <div class="btn-row">
-      <button class="btn btn-secondary" onclick="restartQuiz()">🔄 再玩一次</button>
-      <button class="btn" onclick="shareResult()">📤 分享给朋友</button>
-    </div>
-  </div>
+  <footer class="footer">
+    <p>🎈 快乐学习，趣味探索 🎈</p>
+  </footer>
 
 </div>
-
-<script>
-  // 题目数据
-  const questions = [
-    {
-      icon: "📍",
-      text: "三星堆遗址在我国的哪个省呢？",
-      options: ["广东省", "四川省", "山东省", "黑龙江省"],
-      correct: 1,
-      feedback: "对啦！三星堆在四川省广汉市，那里是古代蜀国的地方哦～"
-    },
-    {
-      icon: "👁️",
-      text: "三星堆最有名的青铜纵目面具，它的眼睛是什么样的？",
-      options: ["小小的眯眯眼", "圆圆的大眼睛", "突出来像两根柱子", "闭着在睡觉"],
-      correct: 2,
-      feedback: "没错！纵目面具的眼睛突出来有16厘米长呢，就像望远镜一样，人们叫它「千里眼」～"
-    },
-    {
-      icon: "🌳",
-      text: "三星堆的青铜神树特别高大，你知道它大约有多高吗？",
-      options: ["1米，和小朋友一样高", "4米，比两层楼还高", "10米，像大树一样", "100米，像大山一样"],
-      correct: 1,
-      feedback: "答对啦！最大的青铜神树有将近4米高，树上还有小鸟和一条龙呢，超级神奇！"
-    },
-    {
-      icon: "👑",
-      text: "三星堆有一根「金杖」，它是用什么材料做的呢？",
-      options: ["木头做的", "金子做的", "塑料做的", "玻璃做的"],
-      correct: 1,
-      feedback: "正确！金杖是用金子做的，上面还刻着鱼、鸟和人的图案，可能是国王的权杖哦～"
-    },
-    {
-      icon: "☀️",
-      text: "三星堆有一个圆圆的像车轮一样的青铜器，它叫什么名字？",
-      options: ["太阳轮", "月亮盘", "星星环", "方向盘"],
-      correct: 0,
-      feedback: "太棒了！这个叫「太阳轮」，因为古代蜀国人非常崇拜太阳，觉得太阳给大家带来光明和温暖～"
-    },
-    {
-      icon: "🏺",
-      text: "三星堆的「三星堆」这个名字是怎么来的呢？",
-      options: ["因为有三个星星", "因为有三个土堆像星星", "因为是三星公司造的", "因为晚上能看到三颗星"],
-      correct: 1,
-      feedback: "答对啦！那里有三个古老的土堆，排列得像天上的星星一样，所以叫三星堆～"
-    },
-    {
-      icon: "🐯",
-      text: "三星堆出土了一只青铜老虎，古蜀人为什么喜欢老虎呢？",
-      options: ["老虎很好吃", "老虎很威武，是力量的象征", "老虎会唱歌", "老虎会下蛋"],
-      correct: 1,
-      feedback: "没错！古蜀人觉得老虎很威武勇猛，代表着力量，所以很崇拜老虎～"
-    },
-    {
-      icon: "🐘",
-      text: "三星堆出土了好多好多象牙，你知道这些象牙是哪里来的吗？",
-      options: ["从大象身上来的", "从树上长出来的", "用石头雕的", "用金子做的"],
-      correct: 0,
-      feedback: "对啦！那时候四川有很多大象，古蜀人把象牙用来祭祀，觉得象牙很珍贵～"
-    },
-    {
-      icon: "🦆",
-      text: "三星堆有很多动物造型的青铜器，下面哪个动物没有在三星堆出现过？",
-      options: ["鸟", "龙", "老虎", "恐龙"],
-      correct: 3,
-      feedback: "哈哈，恐龙在三星堆时代早就灭绝啦！三星堆有鸟、龙、老虎、蛇等动物造型～"
-    },
-    {
-      icon: "🪙",
-      text: "三星堆的黄金面具有多薄呢？",
-      options: ["像砖头一样厚", "像书本一样厚", "比一张纸还薄", "和手机一样厚"],
-      correct: 2,
-      feedback: "太厉害了！黄金面具只有0.2毫米厚，比一张打印纸还薄，古蜀人的手艺真棒！"
-    },
-    {
-      icon: "🐉",
-      text: "青铜神树上有一条龙，它是怎么爬在树上的呢？",
-      options: ["用爪子抓着", "盘绕在树干上", "用尾巴吊着", "坐在树枝上"],
-      correct: 1,
-      feedback: "答对啦！一条龙盘绕在神树的树干上，头朝下、尾在上，好像要从树上飞下来一样～"
-    },
-    {
-      icon: "🐦",
-      text: "青铜神树上有多少只小鸟呢？",
-      options: ["1只", "3只", "9只", "100只"],
-      correct: 2,
-      feedback: "没错！神树上有九只神鸟，站在不同的树枝上，传说它们是太阳的化身呢～"
-    },
-    {
-      icon: "🎭",
-      text: "三星堆的青铜面具是用来做什么的呢？",
-      options: ["给小朋友玩的", "祭祀用的神像", "做饭的锅", "装东西的盒子"],
-      correct: 1,
-      feedback: "正确！这些面具是祭祀用的，古蜀人相信它们代表着神灵，会保佑大家平安～"
-    },
-    {
-      icon: "📏",
-      text: "最大的青铜纵目面具有多宽呢？",
-      options: ["10厘米，和手掌一样大", "1米多，比小朋友还宽", "10米，像房子一样", "100米，像山一样"],
-      correct: 1,
-      feedback: "对啦！最大的纵目面具宽138厘米，比一个成年人的肩膀还宽呢，超级壮观！"
-    },
-    {
-      icon: "🏛️",
-      text: "三星堆距离现在大约有多少年了？",
-      options: ["100年", "500年", "3000多年", "1亿年"],
-      correct: 2,
-      feedback: "没错！三星堆距离现在大约有3000到5000年了，比秦始皇还早呢，超级古老！"
-    },
-    {
-      icon: "👤",
-      text: "三星堆有个超级高的「青铜大立人」，它有多高呢？",
-      options: ["1米，和小朋友一样高", "2.6米，比篮球运动员还高", "10米，像楼房一样高", "100米，超级高"],
-      correct: 1,
-      feedback: "答对啦！青铜大立人有2.62米高，比篮球运动员还高，站在那里威风凛凛的～"
-    },
-    {
-      icon: "🤲",
-      text: "青铜大立人的手是握成什么样子的？",
-      options: ["双手张开", "握成大大的圆圈", "插在口袋里", "比着剪刀手"],
-      correct: 1,
-      feedback: "没错！它的双手握成大大的圆圈，好像握着什么珍贵的东西，有人说是象牙，也有人说是权杖～"
-    },
-    {
-      icon: "🐟",
-      text: "金杖上刻着三种图案，下面哪个不是金杖上的图案？",
-      options: ["鱼", "鸟", "人", "汽车"],
-      correct: 3,
-      feedback: "哈哈，那时候还没有汽车呢！金杖上刻着鱼、鸟和人像，可能代表着国王的权力～"
-    },
-    {
-      icon: "⛏️",
-      text: "三星堆最早是谁发现的呢？",
-      options: ["考古学家", "一位农民挖水沟时发现的", "小朋友玩捉迷藏发现的", "外星人送来的"],
-      correct: 1,
-      feedback: "对啦！1929年，一位农民爷爷在挖水沟的时候意外发现了玉石器，三星堆才露出了神秘的一角～"
-    },
-    {
-      icon: "🕳️",
-      text: "三星堆的文物是从哪里挖出来的？",
-      options: ["房子下面", "祭祀坑里", "河里", "树上"],
-      correct: 1,
-      feedback: "正确！文物都是从「祭祀坑」里挖出来的，古蜀人把宝贝埋在坑里祭祀神灵，祈求平安～"
-    },
-    {
-      icon: "🌞",
-      text: "古蜀人为什么那么崇拜太阳呢？",
-      options: ["太阳很好看", "太阳能带来光明和温暖，让庄稼生长", "太阳会唱歌", "太阳能吃"],
-      correct: 1,
-      feedback: "答对啦！古代人觉得太阳能带来光明和温暖，让庄稼生长，没有太阳大家就活不下去啦～"
-    },
-    {
-      icon: "🍚",
-      text: "三星堆的古蜀人主要吃什么粮食呢？",
-      options: ["汉堡包", "稻米", "披萨", "冰淇淋"],
-      correct: 1,
-      feedback: "没错！那时候四川就已经种水稻了，古蜀人主要吃米饭，和我们现在差不多哦～"
-    },
-    {
-      icon: "🧱",
-      text: "古蜀人住的房子是用什么建的？",
-      options: ["钢筋水泥", "木头和竹子", "冰块", "玻璃"],
-      correct: 1,
-      feedback: "对啦！那时候没有钢筋水泥，古蜀人用木头和竹子建房子，很多房子建在木桩上，防潮又防野兽～"
-    },
-    {
-      icon: "👗",
-      text: "古蜀人穿的衣服是用什么做的呢？",
-      options: ["丝绸和麻布", "塑料", "金属", "纸"],
-      correct: 0,
-      feedback: "正确！那时候的人已经会养蚕宝宝、做丝绸了，也会用麻来织布做衣服～"
-    },
-    {
-      icon: "🔥",
-      text: "青铜器是怎么做出来的呢？",
-      options: ["用石头磨出来的", "用铜水倒进模子里浇铸的", "用胶水粘的", "用木头刻的"],
-      correct: 1,
-      feedback: "太棒了！先把铜化成铜水，再倒进用泥巴做的模子里，冷却后就变成青铜器啦，超级厉害！"
-    },
-    {
-      icon: "🐍",
-      text: "三星堆有很多蛇的图案，古蜀人为什么喜欢蛇呢？",
-      options: ["蛇很好吃", "蛇能蜕皮重生，代表生命", "蛇会跳舞", "蛇很可爱"],
-      correct: 1,
-      feedback: "答对啦！古蜀人觉得蛇会蜕皮，就像获得了新生命一样，所以蛇代表着生命和重生～"
-    },
-    {
-      icon: "💎",
-      text: "三星堆有很多玉器，古蜀人觉得玉有什么特别的？",
-      options: ["玉很好吃", "玉是神圣的，能和神灵沟通", "玉能当钱花", "玉是玩具"],
-      correct: 1,
-      feedback: "没错！古蜀人觉得玉很神圣，用玉器来祭祀神灵，相信玉能让人和神灵沟通～"
-    },
-    {
-      icon: "🎺",
-      text: "你觉得三星堆的人会听音乐吗？",
-      options: ["不会，那时候没有音乐", "会的，有乐器可以演奏", "只有国王才能听", "古蜀人都戴耳机听"],
-      correct: 1,
-      feedback: "对啦！那时候已经有乐器了，比如铜铃、鼓等等，古蜀人也会听音乐、跳舞庆祝哦～"
-    },
-    {
-      icon: "🐕",
-      text: "三星堆的人会养什么小动物当帮手呢？",
-      options: ["恐龙", "狗狗", "狮子", "老虎"],
-      correct: 1,
-      feedback: "没错！那时候人们已经开始养狗了，狗狗可以帮着打猎、看家，是人类的好朋友～"
-    },
-    {
-      icon: "🎁",
-      text: "三星堆出土了那么多宝贝，你觉得最神奇的是什么？",
-      options: ["都很神奇！", "只有面具神奇", "只有神树神奇", "都不神奇"],
-      correct: 0,
-      feedback: "哈哈，说得对！三星堆的每一件宝贝都很神奇，都藏着古蜀人的智慧和秘密，等着我们去探索呢～"
-    }
-  ];
-
-  let currentQuestion = 0;
-  let score = 0;
-  let openAnswer = "";
-  let answered = false;
-
-  function startQuiz() {
-    currentQuestion = 0;
-    score = 0;
-    openAnswer = "";
-    showPage('quiz-page');
-    loadQuestion();
-  }
-
-  function showPage(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(pageId).classList.add('active');
-  }
-
-  function loadQuestion() {
-    answered = false;
-    const q = questions[currentQuestion];
-    
-    document.getElementById('question-num').textContent = `第 ${currentQuestion + 1} 题`;
-    document.getElementById('progress-fill').style.width = `${((currentQuestion) / questions.length) * 100}%`;
-    document.getElementById('score-display').textContent = `⭐ ${score} 分`;
-    document.getElementById('question-icon').textContent = q.icon;
-    document.getElementById('question-text').textContent = q.text;
-    
-    const optionsDiv = document.getElementById('options');
-    optionsDiv.innerHTML = '';
-    
-    const letters = ['A', 'B', 'C', 'D'];
-    q.options.forEach((opt, index) => {
-      const btn = document.createElement('button');
-      btn.className = 'option';
-      btn.innerHTML = `<span class="option-letter">${letters[index]}</span><span>${opt}</span>`;
-      btn.onclick = () => selectOption(index);
-      optionsDiv.appendChild(btn);
-    });
-    
-    document.getElementById('feedback').className = 'feedback';
-    document.getElementById('feedback').textContent = '';
-    document.getElementById('next-btn-wrap').classList.remove('show');
-    
-    // 重新触发动画
-    const card = document.getElementById('question-card');
-    card.style.animation = 'none';
-    card.offsetHeight;
-    card.style.animation = 'pop 0.5s ease';
-  }
-
-  function selectOption(index) {
-    if (answered) return;
-    answered = true;
-    
-    const q = questions[currentQuestion];
-    const options = document.querySelectorAll('.option');
-    
-    options.forEach((opt, i) => {
-      opt.classList.add('disabled');
-      if (i === q.correct) {
-        opt.classList.add('correct');
-      } else if (i === index && index !== q.correct) {
-        opt.classList.add('wrong');
-      }
-    });
-    
-    const feedback = document.getElementById('feedback');
-    if (index === q.correct) {
-      score += 1;
-      feedback.className = 'feedback correct show';
-      feedback.innerHTML = "🎉 答对啦！<br>" + q.feedback;
-    } else {
-      feedback.className = 'feedback wrong show';
-      feedback.innerHTML = "😅 哎呀，答错啦！<br>" + q.feedback;
-    }
-    
-    document.getElementById('score-display').textContent = `⭐ ${score} 分`;
-    document.getElementById('next-btn-wrap').classList.add('show');
-  }
-
-  function nextQuestion() {
-    currentQuestion++;
-    if (currentQuestion < questions.length) {
-      loadQuestion();
-    } else {
-      // 选择题做完了，进入开放题
-      document.getElementById('open-score-display').textContent = `⭐ ${score} 分`;
-      showPage('open-page');
-    }
-  }
-
-  function submitOpenAnswer() {
-    const answer = document.getElementById('open-answer').value.trim();
-    if (answer === '') {
-      alert('小朋友，先写下你的想法再提交哦～');
-      return;
-    }
-    openAnswer = answer;
-    showResult();
-  }
-
-  function showResult() {
-    document.getElementById('final-score').textContent = score;
-    
-    let badge, title, message, stars;
-    
-    if (score === 30) {
-      badge = "🏆";
-      title = "满分小博士！";
-      message = "哇！你全部答对了，真是一个超级厉害的小小考古学家！三星堆的所有秘密都被你发现啦～";
-      stars = "⭐⭐⭐⭐⭐";
-    } else if (score >= 25) {
-      badge = "🥇";
-      title = "太棒啦！";
-      message = "你真的好厉害！答对了这么多题，你对三星堆的了解可真不少呢，继续加油！";
-      stars = "⭐⭐⭐⭐✨";
-    } else if (score >= 18) {
-      badge = "🥈";
-      title = "做得不错！";
-      message = "你已经知道很多三星堆的知识啦！继续探索，下次一定能得更高分！";
-      stars = "⭐⭐⭐✨✨";
-    } else if (score >= 10) {
-      badge = "🥉";
-      title = "继续努力！";
-      message = "你已经迈出了探索三星堆的一大步啦！多看看文物，下次一定能更棒！";
-      stars = "⭐⭐✨✨✨";
-    } else {
-      badge = "💪";
-      title = "别灰心哦！";
-      message = "三星堆的秘密还有很多很多，我们一起再去博物馆看看，下次一定能答对更多题目！";
-      stars = "⭐✨✨✨✨";
-    }
-    
-    document.getElementById('result-badge').textContent = badge;
-    document.getElementById('result-title').textContent = title;
-    document.getElementById('result-message').textContent = message;
-    document.getElementById('stars').textContent = stars;
-    document.getElementById('result-answer-text').textContent = openAnswer;
-    
-    showPage('result-page');
-  }
-
-  function restartQuiz() {
-    document.getElementById('open-answer').value = '';
-    showPage('start-page');
-  }
-
-  function shareResult() {
-    const text = `我在三星堆小测试里得了 ${score} 分，获得了${document.getElementById('result-title').textContent}！你也来试试吧～`;
-    if (navigator.share) {
-      navigator.share({
-        title: '三星堆小测试',
-        text: text,
-      }).catch(() => {});
-    } else {
-      navigator.clipboard.writeText(text).then(() => {
-        alert('成绩已经复制到剪贴板啦，快去分享给朋友吧！');
-      }).catch(() => {
-        alert('你的成绩是 ' + score + ' 分，真棒！');
-      });
-    }
-  }
-</script>
 
 </body>
 </html>

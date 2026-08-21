@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>三星堆奇妙之旅 · 小测试</title>
+<title>四川吃喝玩乐大挑战 · 小测试</title>
 <style>
   @font-face {
     font-family: 'BricolageGrotesque';
@@ -23,18 +23,16 @@
   }
 
   :root {
-    --bg: #FFF8E7;
-    --bg2: #FFE9B0;
-    --ink: #3D2914;
-    --muted: #8B6914;
-    --rule: #E8C97A;
-    --accent: #2A9D8F;
-    --accent2: #E76F51;
-    --accent3: #F4A261;
-    --accent4: #E9C46A;
-    --accent5: #264653;
-    --bronze: #7CB342;
-    --gold: #FFB300;
+    --bg: #FFF5F5;
+    --bg2: #FFE0E0;
+    --ink: #3D1515;
+    --muted: #A0522D;
+    --rule: #FFB6B6;
+    --accent: #E63946;
+    --accent2: #F77F00;
+    --accent3: #FCBF49;
+    --accent4: #06D6A0;
+    --accent5: #118AB2;
     --correct: #4CAF50;
     --wrong: #F44336;
   }
@@ -50,16 +48,15 @@
     position: relative;
   }
 
-  /* 背景装饰 */
   body::before {
     content: '';
     position: fixed;
     top: -50px;
-    left: -50px;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, var(--accent3) 0%, transparent 70%);
-    opacity: 0.3;
+    right: -50px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, var(--accent2) 0%, transparent 70%);
+    opacity: 0.25;
     border-radius: 50%;
     z-index: 0;
   }
@@ -67,10 +64,10 @@
     content: '';
     position: fixed;
     bottom: -80px;
-    right: -80px;
+    left: -80px;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, var(--accent4) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--accent3) 0%, transparent 70%);
     opacity: 0.3;
     border-radius: 50%;
     z-index: 0;
@@ -87,52 +84,42 @@
     flex-direction: column;
   }
 
-  /* 页面通用 */
   .page {
     display: none;
     animation: fadeIn 0.5s ease;
     flex: 1;
-    display: none;
     flex-direction: column;
   }
-  .page.active {
-    display: flex;
-  }
+  .page.active { display: flex; }
 
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
   @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
   }
-
   @keyframes wiggle {
     0%, 100% { transform: rotate(-3deg); }
     50% { transform: rotate(3deg); }
   }
-
   @keyframes pop {
     0% { transform: scale(0.8); opacity: 0; }
     50% { transform: scale(1.1); }
     100% { transform: scale(1); opacity: 1; }
   }
-
   @keyframes sparkle {
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.5; transform: scale(1.2); }
   }
-
-  /* 开始页 */
-  #start-page {
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 24px;
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
   }
 
+  /* 返回按钮 */
   .back-btn {
     display: inline-flex;
     align-items: center;
@@ -141,41 +128,49 @@
     background: white;
     border: 2px solid var(--rule);
     border-radius: 20px;
-    color: var(--accent2);
+    color: var(--accent);
     font-weight: 600;
     font-size: 0.9rem;
     cursor: pointer;
     text-decoration: none;
     transition: all 0.3s ease;
     font-family: inherit;
-    margin-bottom: 8px;
-    align-self: flex-start;
+    margin-bottom: 12px;
   }
   .back-btn:hover {
     background: var(--bg2);
     transform: translateX(-3px);
   }
 
-  .banner-img {
-    width: 100%;
-    max-width: 600px;
-    border-radius: 24px;
-    box-shadow: 0 10px 40px rgba(231, 111, 81, 0.3);
-    animation: bounce 3s ease-in-out infinite;
+  /* 开始页 */
+  #start-page {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
   }
+
+  .banner-emoji {
+    font-size: 5rem;
+    animation: bounce 3s ease-in-out infinite;
+    margin: 10px 0;
+  }
+  .banner-emoji span { display: inline-block; }
+  .banner-emoji span:nth-child(1) { animation: wiggle 2s ease-in-out infinite; }
+  .banner-emoji span:nth-child(2) { animation: bounce 2.5s ease-in-out infinite 0.3s; }
+  .banner-emoji span:nth-child(3) { animation: wiggle 2.2s ease-in-out infinite 0.5s; }
 
   .title {
     font-family: 'NothingYouCouldDo', cursive;
     font-size: 2.5rem;
-    color: var(--accent2);
-    text-shadow: 3px 3px 0 var(--accent4);
-    margin-top: 10px;
+    color: var(--accent);
+    text-shadow: 3px 3px 0 var(--accent3);
+    line-height: 1.2;
   }
 
   .subtitle {
     font-size: 1.1rem;
     color: var(--muted);
-    margin-bottom: 10px;
   }
 
   .intro-card {
@@ -183,21 +178,19 @@
     border-radius: 20px;
     padding: 24px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    border: 3px solid var(--accent4);
+    border: 3px solid var(--accent3);
     max-width: 500px;
     margin: 0 auto;
   }
-
   .intro-card p {
     font-size: 1rem;
     line-height: 1.8;
     color: var(--ink);
   }
-
   .intro-card .emoji-row {
     font-size: 2rem;
     margin: 16px 0;
-    letter-spacing: 10px;
+    letter-spacing: 8px;
   }
 
   .btn {
@@ -206,27 +199,24 @@
     font-size: 1.3rem;
     font-weight: 700;
     color: white;
-    background: linear-gradient(135deg, var(--accent2), var(--accent3));
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 6px 20px rgba(231, 111, 81, 0.4);
+    box-shadow: 0 6px 20px rgba(230, 57, 70, 0.4);
     transition: all 0.3s ease;
     font-family: inherit;
   }
   .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(231, 111, 81, 0.5);
-  }
-  .btn:active {
-    transform: translateY(-1px);
+    box-shadow: 0 10px 30px rgba(230, 57, 70, 0.5);
   }
   .btn.btn-secondary {
-    background: linear-gradient(135deg, var(--accent), var(--bronze));
-    box-shadow: 0 6px 20px rgba(42, 157, 143, 0.4);
+    background: linear-gradient(135deg, var(--accent5), var(--accent4));
+    box-shadow: 0 6px 20px rgba(17, 138, 178, 0.4);
   }
   .btn.btn-secondary:hover {
-    box-shadow: 0 10px 30px rgba(42, 157, 143, 0.5);
+    box-shadow: 0 10px 30px rgba(17, 138, 178, 0.5);
   }
 
   /* 答题页头部 */
@@ -234,10 +224,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 0;
-    margin-bottom: 16px;
+    padding: 12px 0;
+    margin-bottom: 12px;
   }
-
   .progress-bar {
     flex: 1;
     height: 16px;
@@ -247,25 +236,22 @@
     margin: 0 16px;
     border: 2px solid var(--rule);
   }
-
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--bronze));
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
     border-radius: 8px;
     transition: width 0.5s ease;
     width: 0%;
   }
-
   .question-num {
     font-size: 1rem;
     font-weight: 700;
-    color: var(--accent5);
-    background: var(--accent4);
+    color: white;
+    background: var(--accent);
     padding: 6px 14px;
     border-radius: 20px;
     white-space: nowrap;
   }
-
   .score-display {
     font-size: 0.9rem;
     font-weight: 700;
@@ -289,12 +275,11 @@
     flex-direction: column;
     animation: pop 0.5s ease;
   }
-
   .question-icon {
     width: 80px;
     height: 80px;
     margin: 0 auto 16px;
-    background: linear-gradient(135deg, var(--accent4), var(--accent3));
+    background: linear-gradient(135deg, var(--accent3), var(--accent2));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -302,16 +287,14 @@
     font-size: 2.5rem;
     animation: wiggle 2s ease-in-out infinite;
   }
-
   .question-text {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 700;
     text-align: center;
     margin-bottom: 24px;
     line-height: 1.6;
-    color: var(--accent5);
+    color: #5D1010;
   }
-
   .options {
     display: flex;
     flex-direction: column;
@@ -319,7 +302,6 @@
     flex: 1;
     justify-content: center;
   }
-
   .option {
     display: flex;
     align-items: center;
@@ -338,15 +320,15 @@
     width: 100%;
   }
   .option:hover:not(.disabled) {
-    border-color: var(--accent3);
-    background: #FFF0D4;
+    border-color: var(--accent2);
+    background: #FFE8D6;
     transform: translateX(5px);
   }
   .option .option-letter {
     width: 36px;
     height: 36px;
-    background: var(--accent4);
-    color: var(--accent5);
+    background: var(--accent3);
+    color: #5D1010;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -373,15 +355,7 @@
     background: var(--wrong);
     color: white;
   }
-  .option.disabled {
-    cursor: default;
-  }
-
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    75% { transform: translateX(8px); }
-  }
+  .option.disabled { cursor: default; }
 
   .feedback {
     margin-top: 16px;
@@ -417,18 +391,17 @@
     border-radius: 24px;
     padding: 32px 24px;
     box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    border: 3px solid var(--accent);
+    border: 3px solid var(--accent4);
     flex: 1;
     display: flex;
     flex-direction: column;
     animation: pop 0.5s ease;
   }
-
   .open-question-icon {
     width: 90px;
     height: 90px;
     margin: 0 auto 16px;
-    background: linear-gradient(135deg, var(--accent), var(--bronze));
+    background: linear-gradient(135deg, var(--accent4), var(--accent5));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -436,16 +409,14 @@
     font-size: 2.8rem;
     animation: sparkle 2s ease-in-out infinite;
   }
-
   .open-question-text {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 700;
     text-align: center;
     margin-bottom: 20px;
     line-height: 1.6;
-    color: var(--accent5);
+    color: #5D1010;
   }
-
   .open-question-hint {
     font-size: 0.9rem;
     color: var(--muted);
@@ -455,7 +426,6 @@
     background: var(--bg);
     border-radius: 10px;
   }
-
   textarea.answer-input {
     width: 100%;
     min-height: 140px;
@@ -472,7 +442,7 @@
   }
   textarea.answer-input:focus {
     outline: none;
-    border-color: var(--accent);
+    border-color: var(--accent4);
   }
 
   /* 结果页 */
@@ -482,50 +452,45 @@
     text-align: center;
     gap: 20px;
   }
-
   .result-card {
     background: white;
     border-radius: 28px;
     padding: 40px 30px;
     box-shadow: 0 12px 40px rgba(0,0,0,0.1);
-    border: 4px solid var(--accent4);
+    border: 4px solid var(--accent3);
     max-width: 550px;
     width: 100%;
     animation: pop 0.6s ease;
   }
-
   .result-badge {
     width: 120px;
     height: 120px;
     margin: 0 auto 20px;
-    background: linear-gradient(135deg, var(--gold), var(--accent3));
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 4rem;
-    box-shadow: 0 6px 24px rgba(255, 179, 0, 0.5);
+    box-shadow: 0 6px 24px rgba(247, 127, 0, 0.5);
     animation: bounce 2s ease-in-out infinite;
   }
-
   .result-title {
     font-family: 'NothingYouCouldDo', cursive;
     font-size: 2.2rem;
-    color: var(--accent2);
+    color: var(--accent);
     margin-bottom: 8px;
   }
-
   .result-score {
     font-size: 3rem;
     font-weight: 700;
-    color: var(--accent5);
+    color: #5D1010;
     margin: 16px 0;
   }
   .result-score .out-of {
     font-size: 1.5rem;
     color: var(--muted);
   }
-
   .result-message {
     font-size: 1.1rem;
     line-height: 1.8;
@@ -535,13 +500,11 @@
     background: var(--bg);
     border-radius: 14px;
   }
-
   .stars {
     font-size: 2rem;
     margin: 16px 0;
     letter-spacing: 8px;
   }
-
   .result-answer-section {
     text-align: left;
     margin-top: 20px;
@@ -574,23 +537,21 @@
   .floating-deco {
     position: fixed;
     font-size: 2rem;
-    opacity: 0.6;
+    opacity: 0.5;
     pointer-events: none;
     z-index: 0;
   }
-  .deco1 { top: 10%; left: 5%; animation: bounce 4s ease-in-out infinite; }
-  .deco2 { top: 30%; right: 5%; animation: bounce 3.5s ease-in-out infinite 0.5s; }
-  .deco3 { bottom: 20%; left: 8%; animation: bounce 4.5s ease-in-out infinite 1s; }
-  .deco4 { bottom: 10%; right: 10%; animation: bounce 3s ease-in-out infinite 0.3s; }
+  .deco1 { top: 12%; right: 6%; animation: bounce 4s ease-in-out infinite; }
+  .deco2 { top: 25%; left: 5%; animation: bounce 3.5s ease-in-out infinite 0.5s; }
+  .deco3 { bottom: 15%; right: 8%; animation: bounce 4.5s ease-in-out infinite 1s; }
+  .deco4 { bottom: 25%; left: 7%; animation: bounce 3s ease-in-out infinite 0.3s; }
 
-  /* 响应式 */
   @media (max-width: 600px) {
     .title { font-size: 1.8rem; }
-    .question-text { font-size: 1.1rem; }
+    .question-text { font-size: 1.05rem; }
     .option { font-size: 0.95rem; padding: 12px 16px; }
     .result-title { font-size: 1.6rem; }
     .result-score { font-size: 2.2rem; }
-    .banner-img { border-radius: 16px; }
     .question-card, .open-question-card, .result-card {
       padding: 24px 16px;
       border-radius: 18px;
@@ -598,36 +559,39 @@
     .btn { padding: 14px 36px; font-size: 1.1rem; }
     .quiz-header { flex-wrap: wrap; gap: 8px; }
     .progress-bar { order: 3; flex-basis: 100%; margin: 8px 0 0; }
+    .banner-emoji { font-size: 3.5rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- 背景装饰 -->
-<div class="floating-deco deco1">🏺</div>
-<div class="floating-deco deco2">✨</div>
-<div class="floating-deco deco3">🌳</div>
-<div class="floating-deco deco4">⭐</div>
+<div class="floating-deco deco1">🌶️</div>
+<div class="floating-deco deco2">🐼</div>
+<div class="floating-deco deco3">🍜</div>
+<div class="floating-deco deco4">🏔️</div>
 
 <div class="container">
 
   <!-- 开始页面 -->
   <div class="page active" id="start-page">
     <a href="index.html" class="back-btn">🏠 返回主页</a>
-    <img src="assets/banner.jpg" alt="三星堆奇妙之旅" class="banner-img">
-    <h1 class="title">三星堆小测试</h1>
-    <p class="subtitle">小朋友，你准备好探索古蜀国的秘密了吗？</p>
-    
+    <div class="banner-emoji">
+      <span>🐼</span><span>🌶️</span><span>🏔️</span>
+    </div>
+    <h1 class="title">四川吃喝玩乐<br>大挑战</h1>
+    <p class="subtitle">小朋友，你对四川了解多少呢？来挑战一下吧！</p>
+
     <div class="intro-card">
-      <div class="emoji-row">👁️ 🌳 🏆 ✨</div>
+      <div class="emoji-row">🍲 🐼 🌄 🎭</div>
       <p>
-        我们刚刚参观了神奇的三星堆博物馆，看到了好多好多有趣的宝贝！
-        现在让我们来玩一个小测试，看看你记住了多少有趣的知识吧～
-        一共有 <strong>30道选择题</strong> 和 <strong>1道创意题</strong>，加油！
+        四川是一个超级好玩的地方！有可爱的大熊猫，有麻辣辣的火锅，
+        还有美丽的山川风景。现在让我们来做一个小测试，
+        看看你对四川的<strong>美食、美景和地理</strong>了解多少～
+        一共 <strong>30道题</strong>，加油！
       </p>
     </div>
 
-    <button class="btn" onclick="startQuiz()">🚀 开始探险</button>
+    <button class="btn" onclick="startQuiz()">🚀 开始挑战</button>
   </div>
 
   <!-- 答题页面 -->
@@ -641,13 +605,9 @@
     </div>
 
     <div class="question-card" id="question-card">
-      <div class="question-icon" id="question-icon">👁️</div>
-      <div class="question-text" id="question-text">
-        问题加载中...
-      </div>
-      <div class="options" id="options">
-        <!-- 选项由JS生成 -->
-      </div>
+      <div class="question-icon" id="question-icon">📍</div>
+      <div class="question-text" id="question-text">问题加载中...</div>
+      <div class="options" id="options"></div>
       <div class="feedback" id="feedback"></div>
       <div class="next-btn-wrap" id="next-btn-wrap">
         <button class="btn btn-secondary" onclick="nextQuestion()">下一题 ➡️</button>
@@ -658,23 +618,23 @@
   <!-- 开放题页面 -->
   <div class="page" id="open-page">
     <div class="quiz-header">
-      <div class="question-num" style="background: var(--accent); color: white;">创意题 ✨</div>
+      <div class="question-num" style="background: var(--accent4); color: #063D30;">创意题 ✨</div>
       <div class="progress-bar">
-        <div class="progress-fill" style="width: 100%; background: linear-gradient(90deg, var(--accent), var(--bronze));"></div>
+        <div class="progress-fill" style="width: 100%; background: linear-gradient(90deg, var(--accent4), var(--accent5));"></div>
       </div>
       <div class="score-display" id="open-score-display">⭐ 0 分</div>
     </div>
 
     <div class="open-question-card">
       <div class="open-question-icon">🎨</div>
-      <div class="open-question-text" id="open-question-text">
-        你觉得三星堆时代的小朋友，每天的生活是什么样的呢？他们会玩什么游戏？吃什么好吃的？
+      <div class="open-question-text">
+        如果你去四川玩，你最想去哪里？最想吃什么？为什么呢？
       </div>
       <div class="open-question-hint">
-        💡 小提示：可以想象一下，3000多年前的小朋友会去河边捉鱼吗？会和小动物一起玩吗？会帮爸爸妈妈做家务吗？
+        💡 小提示：可以说说你想去看大熊猫吗？想吃火锅吗？想爬峨眉山吗？
       </div>
-      <textarea class="answer-input" id="open-answer" placeholder="在这里写下你的奇思妙想吧..."></textarea>
-      
+      <textarea class="answer-input" id="open-answer" placeholder="在这里写下你的小想法吧..."></textarea>
+
       <div style="margin-top: 20px; text-align: center;">
         <button class="btn" onclick="submitOpenAnswer()">📝 提交答案</button>
       </div>
@@ -692,11 +652,11 @@
       </div>
       <div class="stars" id="stars">⭐⭐⭐⭐⭐</div>
       <div class="result-message" id="result-message">
-        你真是一个小小考古学家！
+        你真是一个四川小达人！
       </div>
 
-      <div class="result-answer-section" id="result-answer-section">
-        <h4>🎨 你的创意答案：</h4>
+      <div class="result-answer-section">
+        <h4>🎨 你的想法：</h4>
         <p id="result-answer-text"></p>
       </div>
     </div>
@@ -710,217 +670,216 @@
 </div>
 
 <script>
-  // 题目数据
   const questions = [
     {
       icon: "📍",
-      text: "三星堆遗址在我国的哪个省呢？",
-      options: ["广东省", "四川省", "山东省", "黑龙江省"],
+      text: "四川省的省会城市是哪个？",
+      options: ["重庆", "成都", "西安", "昆明"],
       correct: 1,
-      feedback: "对啦！三星堆在四川省广汉市，那里是古代蜀国的地方哦～"
+      feedback: "对啦！四川省的省会是成都，那里有可爱的大熊猫，还有好多好吃的哦～"
     },
     {
-      icon: "👁️",
-      text: "三星堆最有名的青铜纵目面具，它的眼睛是什么样的？",
-      options: ["小小的眯眯眼", "圆圆的大眼睛", "突出来像两根柱子", "闭着在睡觉"],
+      icon: "🐼",
+      text: "四川最有名的动物是什么？",
+      options: ["老虎", "狮子", "大熊猫", "恐龙"],
       correct: 2,
-      feedback: "没错！纵目面具的眼睛突出来有16厘米长呢，就像望远镜一样，人们叫它「千里眼」～"
+      feedback: "没错！大熊猫是四川的宝贝，成都有大熊猫繁育研究基地，可以看到好多萌萌的熊猫～"
     },
     {
-      icon: "🌳",
-      text: "三星堆的青铜神树特别高大，你知道它大约有多高吗？",
-      options: ["1米，和小朋友一样高", "4米，比两层楼还高", "10米，像大树一样", "100米，像大山一样"],
+      icon: "🌶️",
+      text: "四川人最喜欢吃什么味道？",
+      options: ["甜甜的", "麻辣的", "酸酸的", "咸咸的"],
       correct: 1,
-      feedback: "答对啦！最大的青铜神树有将近4米高，树上还有小鸟和一条龙呢，超级神奇！"
+      feedback: "答对啦！四川菜以麻辣著称，火锅、麻辣烫都是四川的招牌美食，又辣又香！"
     },
     {
-      icon: "👑",
-      text: "三星堆有一根「金杖」，它是用什么材料做的呢？",
-      options: ["木头做的", "金子做的", "塑料做的", "玻璃做的"],
+      icon: "🍲",
+      text: "四川最有名的火锅是什么火锅？",
+      options: ["番茄火锅", "麻辣火锅", "菌汤火锅", "冰淇淋火锅"],
       correct: 1,
-      feedback: "正确！金杖是用金子做的，上面还刻着鱼、鸟和人的图案，可能是国王的权杖哦～"
+      feedback: "正确！四川麻辣火锅超级有名，红通通的汤底又麻又辣，涮什么都好吃～"
     },
     {
-      icon: "☀️",
-      text: "三星堆有一个圆圆的像车轮一样的青铜器，它叫什么名字？",
-      options: ["太阳轮", "月亮盘", "星星环", "方向盘"],
-      correct: 0,
-      feedback: "太棒了！这个叫「太阳轮」，因为古代蜀国人非常崇拜太阳，觉得太阳给大家带来光明和温暖～"
+      icon: "🏔️",
+      text: "四川有一座山是中国四大佛教名山之一，它叫什么？",
+      options: ["泰山", "黄山", "峨眉山", "花果山"],
+      correct: 2,
+      feedback: "太棒了！峨眉山在四川乐山，是中国四大佛教名山之一，山上还有可爱的猴子呢～"
     },
     {
-      icon: "🏺",
-      text: "三星堆的「三星堆」这个名字是怎么来的呢？",
-      options: ["因为有三个星星", "因为有三个土堆像星星", "因为是三星公司造的", "因为晚上能看到三颗星"],
+      icon: "💧",
+      text: "四川有个地方叫「九寨归来不看水」，说的是哪里？",
+      options: ["西湖", "九寨沟", "青海湖", "千岛湖"],
       correct: 1,
-      feedback: "答对啦！那里有三个古老的土堆，排列得像天上的星星一样，所以叫三星堆～"
+      feedback: "对啦！九寨沟的水超级美，有五颜六色的湖泊和瀑布，所以说「九寨归来不看水」～"
     },
     {
-      icon: "🐯",
-      text: "三星堆出土了一只青铜老虎，古蜀人为什么喜欢老虎呢？",
-      options: ["老虎很好吃", "老虎很威武，是力量的象征", "老虎会唱歌", "老虎会下蛋"],
+      icon: "🗿",
+      text: "四川乐山大佛特别大，你知道它是用什么刻出来的吗？",
+      options: ["金子", "木头", "石头山", "泥巴"],
+      correct: 2,
+      feedback: "没错！乐山大佛是在一整座山崖上刻出来的，有70多米高，比二十层楼还高！"
+    },
+    {
+      icon: "🍜",
+      text: "下面哪种美食不是四川的？",
+      options: ["担担面", "麻婆豆腐", "北京烤鸭", "钵钵鸡"],
+      correct: 2,
+      feedback: "哈哈，北京烤鸭是北京的美食！担担面、麻婆豆腐、钵钵鸡都是四川的经典美食～"
+    },
+    {
+      icon: "🚗",
+      text: "从河南郑州开车到四川成都，大约有多少公里？",
+      options: ["100公里，开车1小时", "1100公里，开车大约12小时", "10000公里，要开一个月", "10公里，走路就能到"],
       correct: 1,
-      feedback: "没错！古蜀人觉得老虎很威武勇猛，代表着力量，所以很崇拜老虎～"
+      feedback: "答对啦！郑州到成都大约1100公里，开车要12个小时左右，还是挺远的呢～"
     },
     {
-      icon: "🐘",
-      text: "三星堆出土了好多好多象牙，你知道这些象牙是哪里来的吗？",
-      options: ["从大象身上来的", "从树上长出来的", "用石头雕的", "用金子做的"],
-      correct: 0,
-      feedback: "对啦！那时候四川有很多大象，古蜀人把象牙用来祭祀，觉得象牙很珍贵～"
+      icon: "🗺️",
+      text: "从河南开车去四川，走连霍高速那条线，会经过哪个省？",
+      options: ["广东省", "陕西省", "黑龙江省", "浙江省"],
+      correct: 1,
+      feedback: "没错！从河南往西走，经过陕西省（西安就在陕西哦），然后就到四川啦～"
     },
     {
-      icon: "🦆",
-      text: "三星堆有很多动物造型的青铜器，下面哪个动物没有在三星堆出现过？",
-      options: ["鸟", "龙", "老虎", "恐龙"],
+      icon: "🗺️",
+      text: "从河南到四川，不经过下面哪个省？",
+      options: ["陕西省", "河南省", "四川省", "广东省"],
       correct: 3,
-      feedback: "哈哈，恐龙在三星堆时代早就灭绝啦！三星堆有鸟、龙、老虎、蛇等动物造型～"
+      feedback: "对啦！广东在南方很远的地方，从河南去四川不用经过广东的～"
     },
     {
-      icon: "🪙",
-      text: "三星堆的黄金面具有多薄呢？",
-      options: ["像砖头一样厚", "像书本一样厚", "比一张纸还薄", "和手机一样厚"],
-      correct: 2,
-      feedback: "太厉害了！黄金面具只有0.2毫米厚，比一张打印纸还薄，古蜀人的手艺真棒！"
-    },
-    {
-      icon: "🐉",
-      text: "青铜神树上有一条龙，它是怎么爬在树上的呢？",
-      options: ["用爪子抓着", "盘绕在树干上", "用尾巴吊着", "坐在树枝上"],
+      icon: "🚗",
+      text: "从云南昆明开车到四川成都，大约有多远？",
+      options: ["50公里", "1100公里", "5000公里", "10000公里"],
       correct: 1,
-      feedback: "答对啦！一条龙盘绕在神树的树干上，头朝下、尾在上，好像要从树上飞下来一样～"
+      feedback: "正确！昆明到成都大约1100公里，开车大概需要14个小时左右～"
     },
     {
-      icon: "🐦",
-      text: "青铜神树上有多少只小鸟呢？",
-      options: ["1只", "3只", "9只", "100只"],
+      icon: "🗺️",
+      text: "云南和四川的位置关系是怎样的？",
+      options: ["云南在四川的南边", "云南在四川的北边", "云南在四川的东边", "云南在四川的海里面"],
+      correct: 0,
+      feedback: "对啦！云南在四川的南边，两个省是邻居，挨在一起的～"
+    },
+    {
+      icon: "🏙️",
+      text: "下面哪个城市不是四川省的？",
+      options: ["成都", "绵阳", "武汉", "乐山"],
       correct: 2,
-      feedback: "没错！神树上有九只神鸟，站在不同的树枝上，传说它们是太阳的化身呢～"
+      feedback: "没错！武汉是湖北省的省会。成都、绵阳、乐山都是四川的城市～"
+    },
+    {
+      icon: "🏙️",
+      text: "四川有「酒都」之称的城市是哪个？",
+      options: ["宜宾", "德阳", "自贡", "攀枝花"],
+      correct: 0,
+      feedback: "答对啦！宜宾被称为「酒都」，有名的五粮液就是那里出产的哦～"
+    },
+    {
+      icon: "🍬",
+      text: "乐山除了有大佛，还有什么特别有名？",
+      options: ["美食很多", "沙漠很大", "企鹅很多", "雪人很多"],
+      correct: 0,
+      feedback: "没错！乐山被称为「四川的美食腹地」，甜皮鸭、钵钵鸡都超级好吃，很多成都人专门去吃呢～"
+    },
+    {
+      icon: "🍡",
+      text: "四川有一种小吃叫「三大炮」，它是什么做的？",
+      options: ["大炮做的", "糯米做的甜食", "钢铁做的", "冰淇淋做的"],
+      correct: 1,
+      feedback: "哈哈，三大炮不是真的大炮！它是用糯米做的甜食，软软糯糯的，又香又甜～"
+    },
+    {
+      icon: "🍲",
+      text: "四川的「串串」是什么美食？",
+      options: ["一串串的项链", "用签子串起来的火锅菜", "一串葡萄", "一串钥匙"],
+      correct: 1,
+      feedback: "答对啦！串串就是把各种菜串在竹签上，放进火锅里煮着吃，好吃又好玩～"
+    },
+    {
+      icon: "🐼",
+      text: "大熊猫最喜欢吃什么？",
+      options: ["汉堡包", "竹子", "鱼", "糖果"],
+      correct: 1,
+      feedback: "没错！大熊猫最喜欢吃竹子了，每天要吃好多好多竹子，四川的竹林可多啦～"
+    },
+    {
+      icon: "🏔️",
+      text: "四川西部有很多高山，属于哪个山脉？",
+      options: ["喜马拉雅山", "横断山脉", "长白山", "武夷山"],
+      correct: 1,
+      feedback: "对啦！四川西部属于横断山脉，有好多高高的雪山，风景超级壮美～"
+    },
+    {
+      icon: "🌊",
+      text: "都江堰是四川古代的什么工程？",
+      options: ["长城", "水利工程", "皇宫", "大桥"],
+      correct: 1,
+      feedback: "正确！都江堰是古代的水利工程，是李冰父子修建的，用了两千多年还在使用呢，超级厉害！"
     },
     {
       icon: "🎭",
-      text: "三星堆的青铜面具是用来做什么的呢？",
-      options: ["给小朋友玩的", "祭祀用的神像", "做饭的锅", "装东西的盒子"],
+      text: "四川有一种很有名的戏曲叫什么？",
+      options: ["京剧", "川剧", "越剧", "黄梅戏"],
       correct: 1,
-      feedback: "正确！这些面具是祭祀用的，古蜀人相信它们代表着神灵，会保佑大家平安～"
+      feedback: "没错！川剧是四川的地方戏，最有名的就是「变脸」了，唰的一下脸就变了，超级神奇！"
     },
     {
-      icon: "📏",
-      text: "最大的青铜纵目面具有多宽呢？",
-      options: ["10厘米，和手掌一样大", "1米多，比小朋友还宽", "10米，像房子一样", "100米，像山一样"],
+      icon: "☕",
+      text: "成都人特别喜欢一种悠闲的活动是什么？",
+      options: ["滑雪", "喝茶", "冲浪", "跳伞"],
       correct: 1,
-      feedback: "对啦！最大的纵目面具宽138厘米，比一个成年人的肩膀还宽呢，超级壮观！"
+      feedback: "答对啦！成都人特别喜欢喝茶、聊天、打麻将，生活节奏慢悠悠的，很会享受生活～"
     },
     {
-      icon: "🏛️",
-      text: "三星堆距离现在大约有多少年了？",
-      options: ["100年", "500年", "3000多年", "1亿年"],
-      correct: 2,
-      feedback: "没错！三星堆距离现在大约有3000到5000年了，比秦始皇还早呢，超级古老！"
-    },
-    {
-      icon: "👤",
-      text: "三星堆有个超级高的「青铜大立人」，它有多高呢？",
-      options: ["1米，和小朋友一样高", "2.6米，比篮球运动员还高", "10米，像楼房一样高", "100米，超级高"],
+      icon: "🥟",
+      text: "四川有一种小吃叫「抄手」，其实就是我们说的什么？",
+      options: ["饺子", "馄饨", "包子", "馒头"],
       correct: 1,
-      feedback: "答对啦！青铜大立人有2.62米高，比篮球运动员还高，站在那里威风凛凛的～"
+      feedback: "对啦！抄手就是馄饨，四川的红油抄手特别有名，又辣又香，超级好吃～"
     },
     {
-      icon: "🤲",
-      text: "青铜大立人的手是握成什么样子的？",
-      options: ["双手张开", "握成大大的圆圈", "插在口袋里", "比着剪刀手"],
+      icon: "🧊",
+      text: "四川夏天很热，有一种甜品叫「冰粉」，它是什么样的？",
+      options: ["像冰块一样硬", "像果冻一样QQ弹弹", "像饼干一样脆", "像棉花糖一样软"],
       correct: 1,
-      feedback: "没错！它的双手握成大大的圆圈，好像握着什么珍贵的东西，有人说是象牙，也有人说是权杖～"
+      feedback: "没错！冰粉是一种像果冻一样的甜品，冰冰凉凉、QQ弹弹的，加上红糖水，夏天吃超舒服～"
     },
     {
-      icon: "🐟",
-      text: "金杖上刻着三种图案，下面哪个不是金杖上的图案？",
-      options: ["鱼", "鸟", "人", "汽车"],
-      correct: 3,
-      feedback: "哈哈，那时候还没有汽车呢！金杖上刻着鱼、鸟和人像，可能代表着国王的权力～"
-    },
-    {
-      icon: "⛏️",
-      text: "三星堆最早是谁发现的呢？",
-      options: ["考古学家", "一位农民挖水沟时发现的", "小朋友玩捉迷藏发现的", "外星人送来的"],
+      icon: "🦆",
+      text: "乐山有一道名菜叫「甜皮鸭」，它的皮是什么味道的？",
+      options: ["咸的", "甜的", "苦的", "酸的"],
       correct: 1,
-      feedback: "对啦！1929年，一位农民爷爷在挖水沟的时候意外发现了玉石器，三星堆才露出了神秘的一角～"
+      feedback: "答对啦！甜皮鸭的皮是甜甜的，刷了麦芽糖浆炸过，外甜里嫩，超级好吃～"
     },
     {
-      icon: "🕳️",
-      text: "三星堆的文物是从哪里挖出来的？",
-      options: ["房子下面", "祭祀坑里", "河里", "树上"],
+      icon: "🐼",
+      text: "刚出生的熊猫宝宝是什么颜色的？",
+      options: ["黑白的", "粉红色的", "黑色的", "白色的"],
       correct: 1,
-      feedback: "正确！文物都是从「祭祀坑」里挖出来的，古蜀人把宝贝埋在坑里祭祀神灵，祈求平安～"
+      feedback: "对啦！刚出生的熊猫宝宝是粉红色的，小小的只有老鼠那么大，慢慢才会长出黑白色的毛～"
     },
     {
-      icon: "🌞",
-      text: "古蜀人为什么那么崇拜太阳呢？",
-      options: ["太阳很好看", "太阳能带来光明和温暖，让庄稼生长", "太阳会唱歌", "太阳能吃"],
+      icon: "🌉",
+      text: "四川有一座著名的古代水利工程叫什么名字？",
+      options: ["三峡大坝", "都江堰", "赵州桥", "大运河"],
       correct: 1,
-      feedback: "答对啦！古代人觉得太阳能带来光明和温暖，让庄稼生长，没有太阳大家就活不下去啦～"
+      feedback: "正确！都江堰在成都附近，是两千多年前修建的，到现在还在发挥作用，太神奇了！"
     },
     {
-      icon: "🍚",
-      text: "三星堆的古蜀人主要吃什么粮食呢？",
-      options: ["汉堡包", "稻米", "披萨", "冰淇淋"],
+      icon: "🌄",
+      text: "四川有「天府之国」的美称，这是因为什么？",
+      options: ["四川有很多飞机", "四川物产丰富、土地肥沃", "四川天天出太阳", "四川有外星人"],
       correct: 1,
-      feedback: "没错！那时候四川就已经种水稻了，古蜀人主要吃米饭，和我们现在差不多哦～"
+      feedback: "太棒了！四川盆地土地肥沃、物产丰富，人们生活富足，所以被称为「天府之国」～"
     },
     {
-      icon: "🧱",
-      text: "古蜀人住的房子是用什么建的？",
-      options: ["钢筋水泥", "木头和竹子", "冰块", "玻璃"],
-      correct: 1,
-      feedback: "对啦！那时候没有钢筋水泥，古蜀人用木头和竹子建房子，很多房子建在木桩上，防潮又防野兽～"
-    },
-    {
-      icon: "👗",
-      text: "古蜀人穿的衣服是用什么做的呢？",
-      options: ["丝绸和麻布", "塑料", "金属", "纸"],
+      icon: "🎉",
+      text: "你觉得四川最吸引你的是什么？",
+      options: ["都很吸引我！", "只有美食", "只有熊猫", "都不吸引我"],
       correct: 0,
-      feedback: "正确！那时候的人已经会养蚕宝宝、做丝绸了，也会用麻来织布做衣服～"
-    },
-    {
-      icon: "🔥",
-      text: "青铜器是怎么做出来的呢？",
-      options: ["用石头磨出来的", "用铜水倒进模子里浇铸的", "用胶水粘的", "用木头刻的"],
-      correct: 1,
-      feedback: "太棒了！先把铜化成铜水，再倒进用泥巴做的模子里，冷却后就变成青铜器啦，超级厉害！"
-    },
-    {
-      icon: "🐍",
-      text: "三星堆有很多蛇的图案，古蜀人为什么喜欢蛇呢？",
-      options: ["蛇很好吃", "蛇能蜕皮重生，代表生命", "蛇会跳舞", "蛇很可爱"],
-      correct: 1,
-      feedback: "答对啦！古蜀人觉得蛇会蜕皮，就像获得了新生命一样，所以蛇代表着生命和重生～"
-    },
-    {
-      icon: "💎",
-      text: "三星堆有很多玉器，古蜀人觉得玉有什么特别的？",
-      options: ["玉很好吃", "玉是神圣的，能和神灵沟通", "玉能当钱花", "玉是玩具"],
-      correct: 1,
-      feedback: "没错！古蜀人觉得玉很神圣，用玉器来祭祀神灵，相信玉能让人和神灵沟通～"
-    },
-    {
-      icon: "🎺",
-      text: "你觉得三星堆的人会听音乐吗？",
-      options: ["不会，那时候没有音乐", "会的，有乐器可以演奏", "只有国王才能听", "古蜀人都戴耳机听"],
-      correct: 1,
-      feedback: "对啦！那时候已经有乐器了，比如铜铃、鼓等等，古蜀人也会听音乐、跳舞庆祝哦～"
-    },
-    {
-      icon: "🐕",
-      text: "三星堆的人会养什么小动物当帮手呢？",
-      options: ["恐龙", "狗狗", "狮子", "老虎"],
-      correct: 1,
-      feedback: "没错！那时候人们已经开始养狗了，狗狗可以帮着打猎、看家，是人类的好朋友～"
-    },
-    {
-      icon: "🎁",
-      text: "三星堆出土了那么多宝贝，你觉得最神奇的是什么？",
-      options: ["都很神奇！", "只有面具神奇", "只有神树神奇", "都不神奇"],
-      correct: 0,
-      feedback: "哈哈，说得对！三星堆的每一件宝贝都很神奇，都藏着古蜀人的智慧和秘密，等着我们去探索呢～"
+      feedback: "哈哈，说得对！四川有美食、有美景、有可爱的熊猫，处处都很吸引人，以后一定要去玩哦～"
     }
   ];
 
@@ -940,21 +899,22 @@
   function showPage(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(pageId).classList.add('active');
+    window.scrollTo(0, 0);
   }
 
   function loadQuestion() {
     answered = false;
     const q = questions[currentQuestion];
-    
+
     document.getElementById('question-num').textContent = `第 ${currentQuestion + 1} 题`;
     document.getElementById('progress-fill').style.width = `${((currentQuestion) / questions.length) * 100}%`;
     document.getElementById('score-display').textContent = `⭐ ${score} 分`;
     document.getElementById('question-icon').textContent = q.icon;
     document.getElementById('question-text').textContent = q.text;
-    
+
     const optionsDiv = document.getElementById('options');
     optionsDiv.innerHTML = '';
-    
+
     const letters = ['A', 'B', 'C', 'D'];
     q.options.forEach((opt, index) => {
       const btn = document.createElement('button');
@@ -963,12 +923,11 @@
       btn.onclick = () => selectOption(index);
       optionsDiv.appendChild(btn);
     });
-    
+
     document.getElementById('feedback').className = 'feedback';
     document.getElementById('feedback').textContent = '';
     document.getElementById('next-btn-wrap').classList.remove('show');
-    
-    // 重新触发动画
+
     const card = document.getElementById('question-card');
     card.style.animation = 'none';
     card.offsetHeight;
@@ -978,10 +937,10 @@
   function selectOption(index) {
     if (answered) return;
     answered = true;
-    
+
     const q = questions[currentQuestion];
     const options = document.querySelectorAll('.option');
-    
+
     options.forEach((opt, i) => {
       opt.classList.add('disabled');
       if (i === q.correct) {
@@ -990,7 +949,7 @@
         opt.classList.add('wrong');
       }
     });
-    
+
     const feedback = document.getElementById('feedback');
     if (index === q.correct) {
       score += 1;
@@ -998,9 +957,9 @@
       feedback.innerHTML = "🎉 答对啦！<br>" + q.feedback;
     } else {
       feedback.className = 'feedback wrong show';
-      feedback.innerHTML = "😅 哎呀，答错啦！<br>" + q.feedback;
+      feedback.innerHTML = "😋 哎呀，答错啦！<br>" + q.feedback;
     }
-    
+
     document.getElementById('score-display').textContent = `⭐ ${score} 分`;
     document.getElementById('next-btn-wrap').classList.add('show');
   }
@@ -1010,7 +969,6 @@
     if (currentQuestion < questions.length) {
       loadQuestion();
     } else {
-      // 选择题做完了，进入开放题
       document.getElementById('open-score-display').textContent = `⭐ ${score} 分`;
       showPage('open-page');
     }
@@ -1028,64 +986,48 @@
 
   function showResult() {
     document.getElementById('final-score').textContent = score;
-    
+
     let badge, title, message, stars;
-    
+
     if (score === 30) {
       badge = "🏆";
-      title = "满分小博士！";
-      message = "哇！你全部答对了，真是一个超级厉害的小小考古学家！三星堆的所有秘密都被你发现啦～";
+      title = "四川小博士！";
+      message = "哇！你全部答对了，你对四川的了解可真不少，简直就是一个四川小达人！";
       stars = "⭐⭐⭐⭐⭐";
     } else if (score >= 25) {
       badge = "🥇";
       title = "太棒啦！";
-      message = "你真的好厉害！答对了这么多题，你对三星堆的了解可真不少呢，继续加油！";
+      message = "你真的好厉害！答对了这么多题，以后去四川玩肯定没问题～";
       stars = "⭐⭐⭐⭐✨";
     } else if (score >= 18) {
       badge = "🥈";
       title = "做得不错！";
-      message = "你已经知道很多三星堆的知识啦！继续探索，下次一定能得更高分！";
+      message = "你已经知道很多四川的知识啦！继续探索，下次一定能得更高分！";
       stars = "⭐⭐⭐✨✨";
     } else if (score >= 10) {
       badge = "🥉";
       title = "继续努力！";
-      message = "你已经迈出了探索三星堆的一大步啦！多看看文物，下次一定能更棒！";
+      message = "你已经对四川有一些了解啦！多看看四川的美景美食，下次一定更棒！";
       stars = "⭐⭐✨✨✨";
     } else {
       badge = "💪";
       title = "别灰心哦！";
-      message = "三星堆的秘密还有很多很多，我们一起再去博物馆看看，下次一定能答对更多题目！";
+      message = "四川还有好多好玩的好吃的等着你去发现呢，下次一定能答对更多题目！";
       stars = "⭐✨✨✨✨";
     }
-    
+
     document.getElementById('result-badge').textContent = badge;
     document.getElementById('result-title').textContent = title;
     document.getElementById('result-message').textContent = message;
     document.getElementById('stars').textContent = stars;
     document.getElementById('result-answer-text').textContent = openAnswer;
-    
+
     showPage('result-page');
   }
 
   function restartQuiz() {
     document.getElementById('open-answer').value = '';
     showPage('start-page');
-  }
-
-  function shareResult() {
-    const text = `我在三星堆小测试里得了 ${score} 分，获得了${document.getElementById('result-title').textContent}！你也来试试吧～`;
-    if (navigator.share) {
-      navigator.share({
-        title: '三星堆小测试',
-        text: text,
-      }).catch(() => {});
-    } else {
-      navigator.clipboard.writeText(text).then(() => {
-        alert('成绩已经复制到剪贴板啦，快去分享给朋友吧！');
-      }).catch(() => {
-        alert('你的成绩是 ' + score + ' 分，真棒！');
-      });
-    }
   }
 </script>
 
