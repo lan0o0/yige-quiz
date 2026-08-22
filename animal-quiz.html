@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>动物世界大冒险 · 小测试</title>
+<style>
+  @font-face {
+    font-family: 'BricolageGrotesque';
+    src: url('./_shared/fonts/BricolageGrotesque-Regular.ttf') format('truetype');
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: 'BricolageGrotesque';
+    src: url('./_shared/fonts/BricolageGrotesque-Bold.ttf') format('truetype');
+    font-weight: 700;
+  }
+  @font-face {
+    font-family: 'NothingYouCouldDo';
+    src: url('./_shared/fonts/NothingYouCouldDo-Regular.ttf') format('truetype');
+    font-weight: 400;
+  }
+
+  :root {
+    --bg: #FFF3E0;
+    --bg2: #FFE0B2;
+    --ink: #3E2723;
+    --muted: #795548;
+    --rule: #FFCC80;
+    --accent: #E65100;
+    --accent2: #FF6F00;
+    --accent3: #2196F3;
+    --accent4: #FF8F00;
+    --accent5: #FF7043;
+    --correct: #4CAF50;
+    --wrong: #F44336;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", "Heiti SC", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50px;
+    right: -50px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, var(--accent5) 0%, transparent 70%);
+    opacity: 0.2;
+    border-radius: 50%;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -80px;
+    left: -80px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--accent4) 0%, transparent 70%);
+    opacity: 0.15;
+    border-radius: 50%;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .page {
+    display: none;
+    animation: fadeIn 0.5s ease;
+    flex: 1;
+    flex-direction: column;
+  }
+  .page.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+  @keyframes pop {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes sparkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    background: white;
+    border: 2px solid var(--rule);
+    border-radius: 20px;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    margin-bottom: 12px;
+    align-self: flex-start;
+  }
+  .back-btn:hover {
+    background: var(--bg2);
+    transform: translateX(-3px);
+  }
+
+  #start-page {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .banner-emoji {
+    font-size: 5rem;
+    animation: bounce 3s ease-in-out infinite;
+    margin: 10px 0;
+  }
+  .banner-emoji span { display: inline-block; }
+  .banner-emoji span:nth-child(1) { animation: wiggle 2s ease-in-out infinite; }
+  .banner-emoji span:nth-child(2) { animation: bounce 2.5s ease-in-out infinite 0.3s; }
+  .banner-emoji span:nth-child(3) { animation: wiggle 2.2s ease-in-out infinite 0.5s; }
+
+  .title {
+    font-family: 'NothingYouCouldDo', cursive;
+    font-size: 2.5rem;
+    color: var(--accent);
+    text-shadow: 3px 3px 0 var(--accent3);
+    line-height: 1.2;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: var(--muted);
+  }
+
+  .intro-card {
+    background: white;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    border: 3px solid var(--accent5);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .intro-card p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--ink);
+  }
+  .intro-card .emoji-row {
+    font-size: 2rem;
+    margin: 16px 0;
+    letter-spacing: 8px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 16px 48px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(230, 81, 0, 0.4);
+    transition: all 0.3s ease;
+    font-family: inherit;
+    text-decoration: none;
+  }
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(230, 81, 0, 0.5);
+  }
+  .btn.btn-secondary {
+    background: linear-gradient(135deg, var(--accent3), var(--accent4));
+    box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+  }
+  .btn.btn-secondary:hover {
+    box-shadow: 0 10px 30px rgba(33, 150, 243, 0.5);
+  }
+
+  .quiz-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    margin-bottom: 12px;
+  }
+  .progress-bar {
+    flex: 1;
+    height: 16px;
+    background: var(--bg2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 16px;
+    border: 2px solid var(--rule);
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent5));
+    border-radius: 8px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+  .question-num {
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    background: var(--accent);
+    padding: 6px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .score-display {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent3);
+    background: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 2px solid var(--accent3);
+    white-space: nowrap;
+  }
+
+  .question-card {
+    background: white;
+    border-radius: 24px;
+    padding: 32px 24px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    border: 3px solid var(--rule);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    animation: pop 0.5s ease;
+  }
+  .question-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, var(--accent4), var(--accent5));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    animation: wiggle 2s ease-in-out infinite;
+  }
+  .question-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 24px;
+    line-height: 1.6;
+    color: #2E1A0E;
+  }
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    justify-content: center;
+  }
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border: 3px solid var(--rule);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.05rem;
+    font-weight: 500;
+    text-align: left;
+    font-family: inherit;
+    color: var(--ink);
+    width: 100%;
+  }
+  .option:hover:not(.disabled) {
+    border-color: var(--accent3);
+    background: #FFF8E1;
+    transform: translateX(5px);
+  }
+  .option .option-letter {
+    width: 36px;
+    height: 36px;
+    background: var(--accent5);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .option.correct {
+    background: #E8F5E9;
+    border-color: var(--correct);
+    animation: pop 0.4s ease;
+  }
+  .option.correct .option-letter {
+    background: var(--correct);
+    color: white;
+  }
+  .option.wrong {
+    background: #FFEBEE;
+    border-color: var(--wrong);
+    animation: shake 0.4s ease;
+  }
+  .option.wrong .option-letter {
+    background: var(--wrong);
+    color: white;
+  }
+  .option.disabled { cursor: default; }
+
+  .feedback {
+    margin-top: 16px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct {
+    background: #E8F5E9;
+    border: 2px solid var(--correct);
+    color: #2E7D32;
+  }
+  .feedback.wrong {
+    background: #FFEBEE;
+    border: 2px solid var(--wrong);
+    color: #C62828;
+  }
+
+  .next-btn-wrap {
+    margin-top: 20px;
+    text-align: center;
+    display: none;
+  }
+  .next-btn-wrap.show { display: block; }
+
+  .open-question-card {
+    background: white;
+    border-radius: 24px;
+    padding: 32px 24px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    border: 3px solid var(--accent3);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    animation: pop 0.5s ease;
+  }
+  .open-question-icon {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, var(--accent3), var(--accent5));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.8rem;
+    animation: sparkle 2s ease-in-out infinite;
+  }
+  .open-question-text {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    color: #2E1A0E;
+  }
+  .open-question-hint {
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 16px;
+    padding: 10px;
+    background: var(--bg);
+    border-radius: 10px;
+  }
+  textarea.answer-input {
+    width: 100%;
+    min-height: 140px;
+    padding: 16px;
+    border: 3px solid var(--rule);
+    border-radius: 16px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    transition: border-color 0.3s;
+  }
+  textarea.answer-input:focus {
+    outline: none;
+    border-color: var(--accent3);
+  }
+
+  #result-page {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+  }
+  .result-card {
+    background: white;
+    border-radius: 28px;
+    padding: 40px 30px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    border: 4px solid var(--accent5);
+    max-width: 550px;
+    width: 100%;
+    animation: pop 0.6s ease;
+  }
+  .result-badge {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    box-shadow: 0 6px 24px rgba(230, 81, 0, 0.5);
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .result-title {
+    font-family: 'NothingYouCouldDo', cursive;
+    font-size: 2.2rem;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .result-score {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #2E1A0E;
+    margin: 16px 0;
+  }
+  .result-score .out-of {
+    font-size: 1.5rem;
+    color: var(--muted);
+  }
+  .result-message {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--ink);
+    margin-bottom: 20px;
+    padding: 16px;
+    background: var(--bg);
+    border-radius: 14px;
+  }
+  .stars {
+    font-size: 2rem;
+    margin: 16px 0;
+    letter-spacing: 8px;
+  }
+  .result-answer-section {
+    text-align: left;
+    margin-top: 20px;
+    padding: 16px;
+    background: #E3F2FD;
+    border-radius: 14px;
+    border: 2px solid var(--accent3);
+  }
+  .result-answer-section h4 {
+    color: var(--accent3);
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+  .result-answer-section p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #0D47A1;
+    font-style: italic;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .floating-deco {
+    position: fixed;
+    font-size: 2rem;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .deco1 { top: 12%; right: 6%; animation: bounce 4s ease-in-out infinite; }
+  .deco2 { top: 25%; left: 5%; animation: bounce 3.5s ease-in-out infinite 0.5s; }
+  .deco3 { bottom: 15%; right: 8%; animation: bounce 4.5s ease-in-out infinite 1s; }
+  .deco4 { bottom: 25%; left: 7%; animation: bounce 3s ease-in-out infinite 0.3s; }
+
+  @media (max-width: 600px) {
+    .title { font-size: 1.8rem; }
+    .question-text { font-size: 1.05rem; }
+    .option { font-size: 0.95rem; padding: 12px 16px; }
+    .result-title { font-size: 1.6rem; }
+    .result-score { font-size: 2.2rem; }
+    .question-card, .open-question-card, .result-card {
+      padding: 24px 16px;
+      border-radius: 18px;
+    }
+    .btn { padding: 14px 36px; font-size: 1.1rem; }
+    .quiz-header { flex-wrap: wrap; gap: 8px; }
+    .progress-bar { order: 3; flex-basis: 100%; margin: 8px 0 0; }
+    .banner-emoji { font-size: 3.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="floating-deco deco1">🦁</div>
+<div class="floating-deco deco2">🐘</div>
+<div class="floating-deco deco3">🐧</div>
+<div class="floating-deco deco4">🦒</div>
+
+<div class="container">
+
+  <!-- 开始页面 -->
+  <div class="page active" id="start-page">
+    <a href="index.html" class="back-btn">🏠 返回主页</a>
+    <div class="banner-emoji">
+      <span>🦁</span><span>🐘</span><span>🐧</span>
+    </div>
+    <h1 class="title">动物世界<br>大冒险</h1>
+    <p class="subtitle">你知道动物们都有什么本领吗？来测一测吧！</p>
+
+    <div class="intro-card">
+      <div class="emoji-row">🦁 🐘 🐧 🦒</div>
+      <p>
+        动物世界真奇妙！跑得最快的猎豹、最大的蓝鲸、会变色的变色龙、
+        住在南极的企鹅……让我们来探索动物们的秘密吧！
+        一共 <strong>30道题</strong>，加油！
+      </p>
+    </div>
+
+    <button class="btn" onclick="startQuiz()">🚀 开始冒险</button>
+  </div>
+
+  <!-- 答题页面 -->
+  <div class="page" id="quiz-page">
+    <div class="quiz-header">
+      <div class="question-num" id="question-num">第 1 题</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="score-display" id="score-display">⭐ 0 分</div>
+    </div>
+
+    <div class="question-card" id="question-card">
+      <div class="question-icon" id="question-icon">🦁</div>
+      <div class="question-text" id="question-text">问题加载中...</div>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback"></div>
+      <div class="next-btn-wrap" id="next-btn-wrap">
+        <button class="btn btn-secondary" onclick="nextQuestion()">下一题 ➡️</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 开放题页面 -->
+  <div class="page" id="open-page">
+    <div class="quiz-header">
+      <div class="question-num" style="background: var(--accent3); color: white;">创意题 ✨</div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 100%; background: linear-gradient(90deg, var(--accent3), var(--accent4));"></div>
+      </div>
+      <div class="score-display" id="open-score-display">⭐ 0 分</div>
+    </div>
+
+    <div class="open-question-card">
+      <div class="open-question-icon">🤔</div>
+      <div class="open-question-text">
+        如果你可以变成一种动物，你最想变成什么？为什么呢？
+      </div>
+      <div class="open-question-hint">
+        💡 小提示：可以想想你想飞、想游泳、还是想跑得很快？
+      </div>
+      <textarea class="answer-input" id="open-answer" placeholder="在这里写下你想变成什么动物吧..."></textarea>
+
+      <div style="margin-top: 20px; text-align: center;">
+        <button class="btn" onclick="submitOpenAnswer()">📝 提交答案</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 结果页面 -->
+  <div class="page" id="result-page">
+    <div class="result-card">
+      <div class="result-badge" id="result-badge">🏆</div>
+      <h2 class="result-title" id="result-title">太棒啦！</h2>
+      <div class="result-score">
+        <span id="final-score">0</span>
+        <span class="out-of">/ 30 题</span>
+      </div>
+      <div class="stars" id="stars">⭐⭐⭐⭐⭐</div>
+      <div class="result-message" id="result-message">
+        你真是一个动物小专家！
+      </div>
+
+      <div class="result-answer-section">
+        <h4>🦊 你的动物变身愿望：</h4>
+        <p id="result-answer-text"></p>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="restartQuiz()">🔄 再玩一次</button>
+      <a href="index.html" class="btn">🏠 返回主页</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const questions = [
+    {
+      icon: "🐆",
+      text: "世界上跑得最快的陆地动物是？",
+      options: ["马","猎豹","狮子","羚羊"],
+      correct: 1,
+      feedback: "猎豹是陆地上跑得最快的动物，最快可以达到每小时120公里，但它只能冲刺很短的距离！"
+    },
+    {
+      icon: "🐋",
+      text: "世界上最大的动物是？",
+      options: ["大象","蓝鲸","大白鲨","长颈鹿"],
+      correct: 1,
+      feedback: "蓝鲸是地球上最大的动物，体长可达30米，体重可达180吨，比最大的恐龙还重！"
+    },
+    {
+      icon: "🦎",
+      text: "会变色来交流和伪装自己的动物是？",
+      options: ["青蛙","变色龙","壁虎","蜥蜴"],
+      correct: 1,
+      feedback: "变色龙改变颜色主要是为了交流和表达情绪，不只是为了伪装！它还拥有独立旋转的眼睛！"
+    },
+    {
+      icon: "🐧",
+      text: "住在南极洲、不会飞但游泳很厉害的鸟是？",
+      options: ["海鸥","企鹅","鸵鸟","信天翁"],
+      correct: 1,
+      feedback: "企鹅住在南极，虽然不会飞，但它们是游泳高手，在水下能以每小时30公里前进！"
+    },
+    {
+      icon: "🐘",
+      text: "世界上最大的陆地动物是？",
+      options: ["河马","犀牛","非洲象","长颈鹿"],
+      correct: 2,
+      feedback: "非洲象是世界上最大的陆地动物，公象肩高可达4米，体重可达6吨！"
+    },
+    {
+      icon: "🦒",
+      text: "世界上最高的动物是？",
+      options: ["大象","长颈鹿","鸵鸟","骆驼"],
+      correct: 1,
+      feedback: "长颈鹿是世界上最高的动物，身高可达5.5米，它们的脖子就有2米长！"
+    },
+    {
+      icon: "🐨",
+      text: "澳大利亚有一种树袋熊，它每天花大把时间睡觉，叫什么？",
+      options: ["考拉","袋鼠","树懒","熊猫"],
+      correct: 0,
+      feedback: "考拉也叫树袋熊，一天能睡18-22小时！它们吃桉树叶，这种叶子营养低，所以要多睡觉保存能量！"
+    },
+    {
+      icon: "🐬",
+      text: "下面哪种动物是哺乳动物而不是鱼？",
+      options: ["鲨鱼","海豚","金枪鱼","剑鱼"],
+      correct: 1,
+      feedback: "海豚是哺乳动物！它们用肺呼吸、是胎生的、还喂奶给宝宝。虽然生活在海里但不是鱼！"
+    },
+    {
+      icon: "🐝",
+      text: "蜜蜂在花丛中飞来飞去，它们在做什么？",
+      options: ["玩耍","采蜜传粉","找朋友","晒太阳"],
+      correct: 1,
+      feedback: "蜜蜂采花蜜和花粉做食物，同时帮花朵传粉。没有蜜蜂传粉，很多植物就无法结果！"
+    },
+    {
+      icon: "🦇",
+      text: "唯一能真正飞行的哺乳动物是？",
+      options: ["飞鼠","蝙蝠","猫头鹰","燕子"],
+      correct: 1,
+      feedback: "蝙蝠是唯一能真正飞行的哺乳动物！飞鼠只能滑翔不能真正飞行。蝙蝠用超声波回声定位来导航！"
+    },
+    {
+      icon: "🐢",
+      text: "下面哪种动物的寿命最可能超过100年？",
+      options: ["狗","猫","大型陆龟","兔子"],
+      correct: 2,
+      feedback: "大型陆龟寿命非常长，有些可以活超过100年，甚至到180岁！是动物界的寿星！"
+    },
+    {
+      icon: "🦁",
+      text: "被称为「百兽之王」的动物是？",
+      options: ["老虎","狮子","豹子","熊"],
+      correct: 1,
+      feedback: "狮子被称为「百兽之王」，雄狮有威武的鬃毛。它们是唯一群居的大型猫科动物！"
+    },
+    {
+      icon: "🐻‍❄️",
+      text: "北极熊的毛是什么颜色的？",
+      options: ["白色","透明","黄色","灰色"],
+      correct: 1,
+      feedback: "北极熊的毛其实是透明的！皮肤是黑色的用来吸热。看起来白色是因为毛发反射阳光！"
+    },
+    {
+      icon: "🦏",
+      text: "犀牛的角是用什么做的？",
+      options: ["骨头","角质","金属","木头"],
+      correct: 1,
+      feedback: "犀牛角和指甲一样是角质组成的！和牛羊的角不同，犀牛角是实心的，不是骨头！"
+    },
+    {
+      icon: "🐙",
+      text: "章鱼有几条腿（腕足）？",
+      options: ["6条","8条","10条","12条"],
+      correct: 1,
+      feedback: "章鱼有8条腕足！它们非常聪明，能拧开瓶盖、走迷宫，还有3颗心脏和蓝色的血液！"
+    },
+    {
+      icon: "🐸",
+      text: "青蛙小时候叫什么？",
+      options: ["小青蛙","蝌蚪","毛毛虫","水虫"],
+      correct: 1,
+      feedback: "青蛙小时候叫蝌蚪，生活在水里用鳃呼吸。长大后尾巴消失，长出四条腿，变成青蛙！"
+    },
+    {
+      icon: "🦅",
+      text: "鹰的视力特别好，它能在多远看到猎物？",
+      options: ["10米","100米","1-2公里","5公里以上"],
+      correct: 2,
+      feedback: "鹰的视力是人类的4-8倍，能在1-2公里外看到地面的小兔子！它们的眼睛能放大看！"
+    },
+    {
+      icon: "🐍",
+      text: "蛇是怎么「听」声音的？",
+      options: ["用耳朵","感受地面震动","用鼻子","用尾巴"],
+      correct: 1,
+      feedback: "蛇没有外耳，但能通过感受地面的震动来「听」声音。它们的舌头还用来闻气味！"
+    },
+    {
+      icon: "🐋",
+      text: "鲸鱼喷出的「水柱」是什么？",
+      options: ["鲸鱼在吐水","鲸鱼在呼吸","鲸鱼在玩水","鲸鱼在哭"],
+      correct: 1,
+      feedback: "鲸鱼用头顶的气孔呼吸，呼气时热气遇冷变成水雾，看起来就像喷泉！不同鲸鱼的水柱形状不一样！"
+    },
+    {
+      icon: "🐜",
+      text: "蚂蚁可以举起自己体重多少倍的东西？",
+      options: ["1倍","10倍","50倍","100倍"],
+      correct: 2,
+      feedback: "蚂蚁可以举起自身体重50倍的东西！如果人有这个力量，就能举起一辆汽车了！"
+    },
+    {
+      icon: "🦥",
+      text: "世界上动作最慢的哺乳动物之一是？",
+      options: ["蜗牛","树懒","乌龟","考拉"],
+      correct: 1,
+      feedback: "树懒是动作最慢的哺乳动物，每分钟只移动2米！它们大部分时间倒挂在树上不动！"
+    },
+    {
+      icon: "🐊",
+      text: "鳄鱼在嘴闭上时，你猜有什么看不到？",
+      options: ["鼻子","牙齿","舌头","眼睛"],
+      correct: 2,
+      feedback: "鳄鱼闭嘴时看不到舌头！它们的舌头被固定在口腔底部，不能像我们一样伸出来！"
+    },
+    {
+      icon: "🐱",
+      text: "猫的眼睛在黑暗中会发光，为什么？",
+      options: ["猫的眼睛有灯","猫的眼睛反射光线","猫的眼睛有电池","猫的眼睛是宝石"],
+      correct: 1,
+      feedback: "猫眼睛后面有一层反光膜，能反射微弱的光线，让猫在夜晚也能看清楚。这就是猫眼发「光」的原因！"
+    },
+    {
+      icon: "🐶",
+      text: "狗主要通过什么方式「看」世界？",
+      options: ["用眼睛","用鼻子","用耳朵","用嘴巴"],
+      correct: 1,
+      feedback: "狗的嗅觉比人灵敏1万到10万倍！它们用鼻子「看」世界，能闻出各种气味信息！"
+    },
+    {
+      icon: "🦈",
+      text: "鲨鱼的牙齿有什么特别？",
+      options: ["只有一颗","能不断换新","是金的","永远不会掉"],
+      correct: 1,
+      feedback: "鲨鱼有好几排牙齿，前排掉了后排就补上！一生中能换掉2万多颗牙齿！"
+    },
+    {
+      icon: "🦜",
+      text: "鹦鹉能学人说话，它们是真的懂吗？",
+      options: ["完全懂","是模仿声音","天生就会","听不懂"],
+      correct: 1,
+      feedback: "鹦鹉是模仿声音！它们有特殊的发声器官，能模仿人说话的声音，但并不完全理解意思！"
+    },
+    {
+      icon: "🐦",
+      text: "蜂鸟有什么特别之处？",
+      options: ["最大的鸟","最小的鸟、能悬停","不会飞","生活在海底"],
+      correct: 1,
+      feedback: "蜂鸟是世界上最小的鸟，能悬停在空中、甚至倒飞！它们翅膀每秒扇动80次！"
+    },
+    {
+      icon: "🐪",
+      text: "被称为「沙漠之舟」的动物是？",
+      options: ["马","骆驼","驴","羊"],
+      correct: 1,
+      feedback: "骆驼被称为「沙漠之舟」，能连续一周不喝水，驼峰里储存的是脂肪不是水！"
+    },
+    {
+      icon: "🦔",
+      text: "刺猬遇到危险时会怎么做？",
+      options: ["跑掉","蜷成球用刺保护自己","攻击对方","装死"],
+      correct: 1,
+      feedback: "刺猬遇到危险会蜷缩成一个球，用身上的刺保护柔软的肚子。刺猬的刺是它的防御武器！"
+    },
+    {
+      icon: "💡",
+      text: "关于动物，下面哪种说法是正确的？",
+      options: ["所有动物都吃肉","动物有多种生存本领，每种都不同","冷血动物就是坏的","只有哺乳动物有感情"],
+      correct: 1,
+      feedback: "动物世界千奇百怪，每种动物都有独特的生存本领，无论大小都有了不起的能力！"
+    }
+  ];
+
+  let currentQuestion = 0;
+  let score = 0;
+  let openAnswer = "";
+  let answered = false;
+
+  function startQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    openAnswer = "";
+    showPage('quiz-page');
+    loadQuestion();
+  }
+
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function loadQuestion() {
+    answered = false;
+    const q = questions[currentQuestion];
+
+    document.getElementById('question-num').textContent = `第 ${currentQuestion + 1} 题`;
+    document.getElementById('progress-fill').style.width = `${((currentQuestion) / questions.length) * 100}%`;
+    document.getElementById('score-display').textContent = `⭐ ${score} 分`;
+    document.getElementById('question-icon').textContent = q.icon;
+    document.getElementById('question-text').textContent = q.text;
+
+    const optionsDiv = document.getElementById('options');
+    optionsDiv.innerHTML = '';
+
+    const letters = ['A', 'B', 'C', 'D'];
+    q.options.forEach((opt, index) => {
+      const btn = document.createElement('button');
+      btn.className = 'option';
+      btn.innerHTML = `<span class="option-letter">${letters[index]}</span><span>${opt}</span>`;
+      btn.onclick = () => selectOption(index);
+      optionsDiv.appendChild(btn);
+    });
+
+    document.getElementById('feedback').className = 'feedback';
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('next-btn-wrap').classList.remove('show');
+
+    const card = document.getElementById('question-card');
+    card.style.animation = 'none';
+    card.offsetHeight;
+    card.style.animation = 'pop 0.5s ease';
+  }
+
+  function selectOption(index) {
+    if (answered) return;
+    answered = true;
+
+    const q = questions[currentQuestion];
+    const options = document.querySelectorAll('.option');
+
+    options.forEach((opt, i) => {
+      opt.classList.add('disabled');
+      if (i === q.correct) {
+        opt.classList.add('correct');
+      } else if (i === index && index !== q.correct) {
+        opt.classList.add('wrong');
+      }
+    });
+
+    const feedback = document.getElementById('feedback');
+    if (index === q.correct) {
+      score += 1;
+      feedback.className = 'feedback correct show';
+      feedback.innerHTML = "🎉 答对啦！<br>" + q.feedback;
+    } else {
+      feedback.className = 'feedback wrong show';
+      feedback.innerHTML = "⚠️ 这道题要注意哦！<br>" + q.feedback;
+    }
+
+    document.getElementById('score-display').textContent = `⭐ ${score} 分`;
+    document.getElementById('next-btn-wrap').classList.add('show');
+  }
+
+  function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+      loadQuestion();
+    } else {
+      document.getElementById('open-score-display').textContent = `⭐ ${score} 分`;
+      showPage('open-page');
+    }
+  }
+
+  function submitOpenAnswer() {
+    const answer = document.getElementById('open-answer').value.trim();
+    if (answer === '') {
+      alert('小朋友，先写下你想变成什么动物再提交哦～');
+      return;
+    }
+    openAnswer = answer;
+    showResult();
+  }
+
+  function showResult() {
+    document.getElementById('final-score').textContent = score;
+
+    let badge, title, message, stars;
+
+    if (score === 30) {
+      badge = "🏆";
+      title = "满分动物小专家！";
+      message = "太棒了！你全部答对了，是一个超级动物小专家！动物世界的秘密你都知道，太厉害啦～";
+      stars = "⭐⭐⭐⭐⭐";
+    } else if (score >= 25) {
+      badge = "🥇";
+      title = "太棒啦！";
+      message = "你对动物世界了解非常多！记住答错的题目，下次一定全对！动物知识越学越有趣～";
+      stars = "⭐⭐⭐⭐✨";
+    } else if (score >= 18) {
+      badge = "🥈";
+      title = "做得不错！";
+      message = "你已经认识了不少动物朋友！继续探索，动物世界还有好多秘密等着你发现～";
+      stars = "⭐⭐⭐✨✨";
+    } else if (score >= 10) {
+      badge = "🥉";
+      title = "继续努力！";
+      message = "你对动物有了一些了解，但还要多观察多学习哦！大自然里有好多神奇的动物～";
+      stars = "⭐⭐✨✨✨";
+    } else {
+      badge = "🐾";
+      title = "加油哦！";
+      message = "动物知识非常有趣，和爸爸妈妈一起再学一学吧！每种动物都有它独特的故事哦～";
+      stars = "⭐✨✨✨✨";
+    }
+
+    document.getElementById('result-badge').textContent = badge;
+    document.getElementById('result-title').textContent = title;
+    document.getElementById('result-message').textContent = message;
+    document.getElementById('stars').textContent = stars;
+    document.getElementById('result-answer-text').textContent = openAnswer;
+
+    showPage('result-page');
+  }
+
+  function restartQuiz() {
+    document.getElementById('open-answer').value = '';
+    showPage('start-page');
+  }
+</script>
+
+</body>
+</html>
